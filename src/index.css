@@ -9,4 +9,6 @@ html {
 body {
   margin: 0;
   background-color: #252525;
+  background-image: url("meals.jpeg");
+  background-repeat: no-repeat;
 }
