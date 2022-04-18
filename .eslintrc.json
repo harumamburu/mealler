@@ -1,4 +1,7 @@
 {
+  "settings": {
+    "react": { "version": "detect" }
+  },
   "env": {
     "browser": true,
     "es2021": true
@@ -15,6 +18,7 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
-    "max-len": ["error", { "code": 100 }]
+    "max-len": ["error", { "code": 100 }],
+    "require-jsdoc": "off"
   }
 }
