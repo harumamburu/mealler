@@ -1,0 +1,12 @@
+.meals {
+  position: fixed;
+  top: 47vh;
+  left: calc(50% - 30rem);
+  width: 60rem;
+}
+
+.meals ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
