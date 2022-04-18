@@ -11,4 +11,5 @@ body {
   background-color: #252525;
   background-image: url("meals.jpeg");
   background-repeat: no-repeat;
+  background-size: cover;
 }
