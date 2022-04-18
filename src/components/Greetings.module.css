@@ -1,0 +1,15 @@
+.greetings {
+  background: #313131;
+  color: white;
+  text-align: center;
+  font: inherit;
+
+  position: fixed;
+  top: 20vh;
+  left: calc(50% - 20rem);
+  width: 40rem;
+}
+
+.greetings h2 {
+  margin-bottom: 2rem;
+}
