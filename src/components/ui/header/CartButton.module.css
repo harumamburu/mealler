@@ -1,0 +1,31 @@
+.cartbutton {
+  color: white;
+  background: #401305;
+  border: none;
+  outline: none;
+  padding: 0.7rem 2rem;
+}
+
+.cartbutton:active,
+.cartbutton:hover{
+  color: #401305;
+  background: white;
+}
+
+.cartbutton label {
+  margin: 0 0.75rem;
+  cursor: pointer;
+}
+
+.cartbutton input {
+  font: inherit;
+  text-align: center;
+  color: white;
+  background: #7f2609;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  width: auto;
+  padding: 0.25rem 0.66rem;
+  cursor: pointer;
+}
