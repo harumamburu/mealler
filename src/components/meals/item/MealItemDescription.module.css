@@ -1,0 +1,16 @@
+.description {
+  font-weight: bold;
+}
+
+.description p {
+  margin: 0.5rem 0;
+}
+
+.description .content {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.description .price {
+  color: #c77c42;
+}
