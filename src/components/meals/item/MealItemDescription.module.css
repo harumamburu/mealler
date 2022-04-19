@@ -6,6 +6,10 @@
   margin: 0.5rem 0;
 }
 
+.description .name {
+  margin: 0;
+}
+
 .description .content {
   font-weight: normal;
   font-style: italic;

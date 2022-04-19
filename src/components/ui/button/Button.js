@@ -5,7 +5,9 @@ import styles from './Button.module.css';
 const Button = (props) => {
   return (
     <button
-      className={`${styles.button} ${props.className ? props.className : ''}}`}
+      className={`${props.className || ''} ${styles.button} ${
+        props.isMain ? styles.mainbutton : ''
+      }`}
       type={props.type || 'button'}
       onClick={props.onClick}
     >
@@ -16,6 +18,7 @@ const Button = (props) => {
 
 Button.propTypes = {
   className: PropTypes.string,
+  isMain: PropTypes.bool,
   type: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,

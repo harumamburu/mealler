@@ -10,7 +10,7 @@ const MealItemControls = (props) => {
         <label htmlFor={props.name}>Amount</label>
         <input id={props.name} type="number" min="1" step="1" pattern="[0-9]" />
       </div>
-      <Button>+ Add</Button>
+      <Button isMain>+ Add</Button>
     </div>
   );
 };

@@ -23,11 +23,11 @@ const Modal = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <ModalBackdrop onClick={props.onClick} />,
+        <ModalBackdrop onClick={props.onBackdropClick} />,
         document.getElementById('backdrop-root')
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
+        <ModalOverlay className={props.cardClassName}>{props.children}</ModalOverlay>,
         document.getElementById('modal-root')
       )}
     </>
@@ -35,7 +35,8 @@ const Modal = (props) => {
 };
 
 Modal.propTypes = {
-  onClick: PropTypes.func,
+  onBackdropClick: PropTypes.func,
+  cardClassName: PropTypes.string,
   children: PropTypes.node,
 };
 
