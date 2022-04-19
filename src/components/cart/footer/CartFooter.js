@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../ui/button/Button';
+import ModalContext from '../../store/modal-context';
 import styles from './CartFooter.module.css';
 
 const CartFooter = (props) => {
+  const modalCtx = useContext(ModalContext);
+
   return (
     <footer>
       <div className={styles.total}>
@@ -11,7 +15,7 @@ const CartFooter = (props) => {
         <h3>{props.total}</h3>
       </div>
       <div className={styles.controls}>
-        <Button>Close</Button>
+        <Button onClick={() => modalCtx.setModal('cart', false)}>Close</Button>
         <Button isMain>Order</Button>
       </div>
     </footer>
