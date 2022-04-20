@@ -23,22 +23,22 @@ export const OrderContextProvider = (props) => {
     });
   }, [order.positions]);
 
-  const addPositionHandler = (position, amount) =>
+  const addPositionHandler = (meal, amount) =>
     setOrder((oldOrder) => {
       const positions = [...oldOrder.positions];
-      const orderedPosition = positions.find((item) => item.meal.id === position.id);
+      const orderedPosition = positions.find((item) => item.meal.id === meal.id);
       orderedPosition
         ? (orderedPosition.amount += +amount)
-        : positions.push({ meal: position, amount: +amount });
+        : positions.push({ meal: meal, amount: +amount });
       return { ...oldOrder, positions: positions };
     });
-  const removePositionHandler = (position, amount) =>
+  const removePositionHandler = (meal, amount) =>
     setOrder((oldOrder) => {
       let positions = [...oldOrder.positions];
-      const orderedPosition = positions.find((item) => item.meal.id === position.id);
+      const orderedPosition = positions.find((item) => item.meal.id === meal.id);
       orderedPosition?.amount > amount
         ? (orderedPosition.amount -= +amount)
-        : (positions = positions.filter((item) => item.meal.id !== position.id));
+        : (positions = positions.filter((item) => item.meal.id !== meal.id));
       return { ...oldOrder, positions: positions };
     });
 

@@ -7,16 +7,16 @@ import OrderContext from '../store/order-context';
 import styles from './Cart.module.css';
 
 const Cart = () => {
-  const waiterCtx = useContext(OrderContext);
+  const orderCtx = useContext(OrderContext);
 
   return (
     <Modal cardClassName={styles.cart}>
       <CartList
-        orderedItems={waiterCtx.order.positions}
-        onAdd={waiterCtx.addOrderPosition}
-        onRemove={waiterCtx.removeOrderPosition}
+        orderedItems={orderCtx.order.positions}
+        onAdd={orderCtx.addOrderPosition}
+        onRemove={orderCtx.removeOrderPosition}
       />
-      <CartFooter total={+waiterCtx.order.totalPrice} />
+      <CartFooter total={+orderCtx.order.totalPrice} />
     </Modal>
   );
 };

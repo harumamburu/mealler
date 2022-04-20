@@ -28,7 +28,7 @@ const CartFooter = (props) => {
 };
 
 CartFooter.propTypes = {
-  total: PropTypes.number,
+  total: PropTypes.number.isRequired,
 };
 
 export default CartFooter;
