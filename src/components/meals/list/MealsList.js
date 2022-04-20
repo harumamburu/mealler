@@ -2,22 +2,22 @@ import { useContext } from 'react';
 
 import Card from '../../ui/card/Card';
 import MealItem from '../item/MealItem';
-import WaiterContext from '../../store/waiter-context';
+import MenuContext from '../../store/menu-context';
+import OrderContext from '../../store/order-context';
 import styles from './MealsList.module.css';
 
 const MealsList = () => {
-  const waiterCtx = useContext(WaiterContext);
+  const menuCtx = useContext(MenuContext);
+  const orderCtx = useContext(OrderContext);
 
   return (
     <Card className={styles.meals}>
       <ul>
-        {waiterCtx.menu.map((meal) => (
+        {menuCtx.menu.map((meal) => (
           <MealItem
             key={meal.id}
-            name={meal.name}
-            description={meal.description}
-            price={meal.price}
-            onOrder={(amount) => waiterCtx.addOrderPosition(meal.id, amount)}
+            meal={meal}
+            onOrder={(amount) => orderCtx.addOrderPosition(meal, amount)}
           />
         ))}
       </ul>

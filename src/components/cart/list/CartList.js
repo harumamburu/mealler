@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types';
 
-import Cartitem from './CartItem';
+import CartItem from './CartItem';
 import styles from './CartList.module.css';
 
 const CartList = (props) => {
   return (
     <ul className={styles.cartlist}>
-      {props.items.map((item) => (
-        <Cartitem
-          key={item.meal.id}
-          id={item.meal.id}
-          name={item.meal.name}
-          price={item.meal.price}
-          amount={item.amount}
+      {props.orderedItems.map((orderedItem) => (
+        <CartItem
+          key={orderedItem.meal.id}
+          orderedItem={orderedItem}
           onAdd={props.onAdd}
           onRemove={props.onRemove}
         />
@@ -22,7 +19,7 @@ const CartList = (props) => {
 };
 
 CartList.propTypes = {
-  items: PropTypes.array,
+  orderedItems: PropTypes.array,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,
 };

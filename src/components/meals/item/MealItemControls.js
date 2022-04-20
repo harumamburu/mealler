@@ -44,7 +44,7 @@ const MealItemControls = (props) => {
 MealItemControls.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
-  onOrder: PropTypes.func,
+  onOrder: PropTypes.func.isRequired,
 };
 
 export default MealItemControls;

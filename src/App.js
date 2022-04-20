@@ -3,19 +3,22 @@ import { useContext } from 'react';
 import Cart from './components/cart/Cart';
 import Greetings from './components/Greetings';
 import MealsList from './components/meals/list/MealsList';
+import { MenuContextProvider } from './components/store/menu-context';
 import ModalContext from './components/store/modal-context';
-import Header from './components/ui/header/Header';
-import { WaiterContextProvider } from './components/store/waiter-context';
+import { OrderContextProvider } from './components/store/order-context';
+import Header from './components/header/Header';
 
 function App() {
   const modalCtx = useContext(ModalContext);
   return (
-    <WaiterContextProvider>
+    <OrderContextProvider>
       <Header />
       <Greetings />
-      <MealsList />
+      <MenuContextProvider>
+        <MealsList />
+      </MenuContextProvider>
       {modalCtx.modals.cart && <Cart />}
-    </WaiterContextProvider>
+    </OrderContextProvider>
   );
 }
 

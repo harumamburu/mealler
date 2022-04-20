@@ -1,21 +1,26 @@
 import PropTypes from 'prop-types';
 
-import MealItemDescription from '../../meals/item/MealItemDescription';
 import Button from '../../ui/button/Button';
+import MealItemDescription from '../../meals/item/MealItemDescription';
 import styles from './CartItem.module.css';
 
-const Cartitem = (props) => {
+const CartItem = (props) => {
   return (
     <li className={styles.cartitem}>
-      <MealItemDescription className={styles.description} name={props.name} price={props.price} />
+      <MealItemDescription className={styles.description} meal={props.orderedItem.meal} />
       <div className={styles.amount}>
-        <input id={props.name} type="text" value={`x ${props.amount}`} readOnly />
+        <input
+          id={props.orderedItem.meal.name}
+          type="text"
+          value={`x ${props.orderedItem.amount}`}
+          readOnly
+        />
       </div>
       <div className={styles.controls}>
-        <Button className={styles.button} onClick={() => props.onAdd(props.id, 1)}>
+        <Button className={styles.button} onClick={() => props.onAdd(props.orderedItem.meal, 1)}>
           +
         </Button>
-        <Button className={styles.button} onClick={() => props.onRemove(props.id, 1)}>
+        <Button className={styles.button} onClick={() => props.onRemove(props.orderedItem.meal, 1)}>
           -
         </Button>
       </div>
@@ -23,13 +28,10 @@ const Cartitem = (props) => {
   );
 };
 
-Cartitem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  amount: PropTypes.number.isRequired,
-  onAdd: PropTypes.func,
-  onRemove: PropTypes.func,
+CartItem.propTypes = {
+  orderedItem: PropTypes.object.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
-export default Cartitem;
+export default CartItem;

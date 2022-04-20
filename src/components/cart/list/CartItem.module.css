@@ -35,6 +35,7 @@
 
 .cartitem .controls {
   flex-basis: 25%;
+  text-align: end;
 }
 
 .cartitem .button {

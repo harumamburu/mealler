@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import Card from '../card/Card';
 import styles from './Modal.module.css';

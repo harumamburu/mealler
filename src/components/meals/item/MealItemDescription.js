@@ -5,18 +5,17 @@ import styles from './MealItemDescription.module.css';
 const MealItemDescription = (props) => {
   return (
     <div className={`${styles.description} ${props.className}`}>
-      <h4 className={styles.name}>{props.name}</h4>
-      {props.description ? <p className={styles.content}>{props.description}</p> : ''}
-      <p className={styles.price}>{`$${props.price}`}</p>
+      <h4 className={styles.name}>{props.meal.name}</h4>
+      {props.showDescription ? <p className={styles.content}>{props.meal.description}</p> : ''}
+      <p className={styles.price}>{`$${props.meal.price}`}</p>
     </div>
   );
 };
 
 MealItemDescription.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  price: PropTypes.number.isRequired,
+  meal: PropTypes.object.isRequired,
+  showDescription: PropTypes.bool,
 };
 
 export default MealItemDescription;

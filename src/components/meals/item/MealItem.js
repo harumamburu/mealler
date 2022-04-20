@@ -9,20 +9,17 @@ const MealItem = (props) => {
     <li className={styles.meal}>
       <MealItemDescription
         className={styles['description-block']}
-        name={props.name}
-        description={props.description}
-        price={props.price}
+        meal={props.meal}
+        showDescription
       />
-      <MealItemControls name={props.name} onOrder={props.onOrder} />
+      <MealItemControls name={props.meal.name} onOrder={props.onOrder} />
     </li>
   );
 };
 
 MealItem.propTypes = {
-  name: PropTypes.string,
-  description: PropTypes.string,
-  price: PropTypes.number,
-  onOrder: PropTypes.func,
+  meal: PropTypes.object.isRequired,
+  onOrder: PropTypes.func.isRequired,
 };
 
 export default MealItem;
