@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const MODALS = { cart: false };
+
 const ModalContext = React.createContext({ modals: {}, setModal: () => {} });
 
 export const ModalContextProvider = (props) => {
@@ -9,7 +10,9 @@ export const ModalContextProvider = (props) => {
   const modalStateHandler = (modalKey, isActive) =>
     setModals((oldModals) => {
       const modals = { ...oldModals };
-      modals[modalKey] = isActive;
+      if (modals.hasOwnProperty(modalKey)) {
+        modals[modalKey] = isActive;
+      }
       return modals;
     });
 
