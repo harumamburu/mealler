@@ -13,7 +13,7 @@ const MealItem = (props) => {
         description={props.description}
         price={props.price}
       />
-      <MealItemControls name={props.name} />
+      <MealItemControls name={props.name} onOrder={props.onOrder} />
     </li>
   );
 };
@@ -22,6 +22,7 @@ MealItem.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   price: PropTypes.number,
+  onOrder: PropTypes.func,
 };
 
 export default MealItem;

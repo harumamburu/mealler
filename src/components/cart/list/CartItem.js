@@ -12,17 +12,24 @@ const Cartitem = (props) => {
         <input id={props.name} type="text" value={`x ${props.amount}`} readOnly />
       </div>
       <div className={styles.controls}>
-        <Button className={styles.button}>+</Button>
-        <Button className={styles.button}>-</Button>
+        <Button className={styles.button} onClick={() => props.onAdd(props.id, 1)}>
+          +
+        </Button>
+        <Button className={styles.button} onClick={() => props.onRemove(props.id, 1)}>
+          -
+        </Button>
       </div>
     </li>
   );
 };
 
 Cartitem.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
+  onAdd: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 export default Cartitem;
