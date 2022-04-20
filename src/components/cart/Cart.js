@@ -9,15 +9,12 @@ import styles from './Cart.module.css';
 const Cart = () => {
   const waiterCtx = useContext(WaiterContext);
 
-  const orederedMeals = waiterCtx.order.map((position) => {
+  const orederedMeals = waiterCtx.order.positions.map((position) => {
     return {
       meal: waiterCtx.menu.find((meal) => meal.id === position.mealId),
       amount: position.amount,
     };
   });
-  const totalPrice = orederedMeals
-    .map((position) => position.meal.price * position.amount)
-    .reduce((prev, curr) => prev + curr, 0);
 
   return (
     <Modal cardClassName={styles.cart}>
@@ -26,7 +23,7 @@ const Cart = () => {
         onAdd={waiterCtx.addOrderPosition}
         onRemove={waiterCtx.removeOrderPosition}
       />
-      <CartFooter total={totalPrice} />
+      <CartFooter total={waiterCtx.order.totalPrice} />
     </Modal>
   );
 };

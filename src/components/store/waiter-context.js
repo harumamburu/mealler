@@ -10,34 +10,45 @@ const MENU = [
 
 const WaiterContext = React.createContext({
   menu: [],
-  order: [],
+  order: {},
   addOrderPosition: () => {},
   removeOrderPosition: () => {},
 });
 
 export const WaiterContextProvider = (props) => {
   const [menu, setMenu] = useState([]);
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState({ positions: [], totalAmount: 0, totalPrice: 0 });
 
   useEffect(() => setMenu(MENU), []);
+  useEffect(() => {
+    setOrder({
+      ...order,
+      totalAmount: order?.positions?.reduce((total, position) => total + position.amount, 0) || 0,
+      totalPrice: order?.positions
+        ?.map(
+          (position) => menu.find((item) => item.id === position.mealId).price * position.amount
+        )
+        .reduce((prev, curr) => prev + curr, 0),
+    });
+  }, [order.positions]);
 
   const addPositionHandler = (mealId, amount) =>
     setOrder((oldOrder) => {
-      const order = [...oldOrder];
-      const orderedPosition = order.find((item) => item.mealId === mealId);
+      const positions = [...oldOrder.positions];
+      const orderedPosition = positions.find((item) => item.mealId === mealId);
       orderedPosition
         ? (orderedPosition.amount += +amount)
-        : order.push({ mealId: mealId, amount: +amount });
-      return order;
+        : positions.push({ mealId: mealId, amount: +amount });
+      return { ...oldOrder, positions: positions };
     });
   const removePositionHandler = (mealId, amount) =>
     setOrder((oldOrder) => {
-      let order = [...oldOrder];
-      const orderedPosition = order.find((item) => item.mealId === mealId);
+      let positions = [...oldOrder.positions];
+      const orderedPosition = positions.find((item) => item.mealId === mealId);
       orderedPosition.amount > amount
         ? (orderedPosition.amount -= +amount)
-        : (order = order.filter((item) => item.mealId !== mealId));
-      return order;
+        : (positions = positions.filter((item) => item.mealId !== mealId));
+      return { ...oldOrder, positions: positions };
     });
 
   return (
