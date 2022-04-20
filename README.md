@@ -13,14 +13,19 @@ React app for take-away ordering.
 ## Components:
 <pre style="background: none">
 Header
-  CartButton
+  CartButton (ModalCtx, OrderCtx)
 GreetingPanel
-MealsList
+MealsList (MenuCtx, OrderCtx)
   MealItem
     MealDescription
-    OrderControls
+    MealItemControls
 Cart
-  CartItem
+  CartList
+    CartItem
+      MealDescription
+      CartItemAmount
+      CartItemControls
+  CartFooter
 UI
   Card
   Button
@@ -28,16 +33,29 @@ UI
 </pre>
 
 ## State:
-ctx=> cart: [Order] ↓(to the cart and order button)  
-MealsList=> availableMeals: [Meal]
+ModalContext=> modals: { cart: false }, setModal: () => {}  
+MenuContext=> menu: [Meal]  
+OrderContext=>  
+&nbsp;&nbsp;order: {Order},  
+&nbsp;&nbsp;addOrderPosition: () => {},  
+&nbsp;&nbsp;removeOrderPosition: () => {}  
+
+MealItemControls=>  
+&nbsp;&nbsp;amount: number
+&nbsp;&nbsp;isValid: bool
 
 ## Interfaces:
 <pre style="background: none">
 Meal:
+  id: string
   name: string
   description: string
   price: number
-Order:
+OrderedMeal:
   meal: Meal
   amount: number
+Order:
+  positions: [OrderedMeal]
+  totalAmount: number
+  totalPrice: number
 </pre>
