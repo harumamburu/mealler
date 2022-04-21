@@ -1,6 +1,7 @@
 .controls {
-  flex-basis: 25%;
+  flex-basis: 65%;
   text-align: end;
+  flex-direction: row;
 }
 
 .controls .button {

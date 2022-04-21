@@ -1,4 +1,6 @@
 .cartlist {
   padding: 0;
   margin: 0;
+  max-height: 21rem;
+  overflow: scroll;
 }
