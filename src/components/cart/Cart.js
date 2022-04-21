@@ -12,16 +12,16 @@ const Cart = () => {
   return (
     <Modal>
       <ul className={styles.cartlist}>
-        {orderCtx.order.positions.map((orderedItem) => (
+        {orderCtx.positions.map((orderedItem) => (
           <CartItem
-            key={orderedItem.meal.id}
+            key={orderedItem.id}
             orderedItem={orderedItem}
-            onAdd={orderCtx.addOrderPosition}
-            onRemove={orderCtx.removeOrderPosition}
+            onAdd={(amount) => orderCtx.addOrderPosition({ ...orderedItem, amount: amount })}
+            onRemove={(amount) => orderCtx.removeOrderPosition({ ...orderedItem, amount: amount })}
           />
         ))}
       </ul>
-      <CartFooter total={+orderCtx.order.totalPrice} />
+      <CartFooter total={orderCtx.totalPrice} />
     </Modal>
   );
 };

@@ -6,10 +6,10 @@ import styles from './CartItemControls.module.css';
 const CartItemControls = (props) => {
   return (
     <div className={styles.controls}>
-      <Button className={styles.button} onClick={() => props.onAdd(props.orderedMeal, 1)}>
+      <Button className={styles.button} onClick={() => props.onAdd(1)}>
         +
       </Button>
-      <Button className={styles.button} onClick={() => props.onRemove(props.orderedMeal, 1)}>
+      <Button className={styles.button} onClick={() => props.onRemove(1)}>
         -
       </Button>
     </div>
@@ -17,7 +17,6 @@ const CartItemControls = (props) => {
 };
 
 CartItemControls.propTypes = {
-  orderedMeal: PropTypes.object.isRequired,
   onAdd: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };

@@ -1,53 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 const OrderContext = React.createContext({
-  order: {},
+  positions: [],
+  totalAmount: 0,
+  totalPrice: 0,
   addOrderPosition: () => {},
   removeOrderPosition: () => {},
 });
 
+const orderReducer = (oldOrder, action) => {
+  const position = action.position;
+  let positions = [...oldOrder.positions];
+  const orderedPosition = positions.find((item) => item.id === position.id);
+
+  if (action.type === 'ADD') {
+    orderedPosition ? (orderedPosition.amount += +position.amount) : positions.push(position);
+  } else if (action.type === 'REMOVE') {
+    orderedPosition?.amount > +position.amount
+      ? (orderedPosition.amount -= +position.amount)
+      : (positions = positions.filter((item) => item.id !== position.id));
+  }
+
+  return {
+    positions: positions,
+    totalAmount: positions.reduce((total, position) => total + +position.amount, 0),
+    totalPrice: positions.reduce((price, position) => price + position.price * +position.amount, 0),
+  };
+};
+
 export const OrderContextProvider = (props) => {
-  const [order, setOrder] = useState({ positions: [], totalAmount: 0, totalPrice: 0 });
-
-  useEffect(() => {
-    setOrder((oldOrder) => {
-      return {
-        ...oldOrder,
-        totalAmount: order?.positions?.reduce((total, position) => total + position.amount, 0) || 0,
-        totalPrice:
-          order?.positions
-            ?.map((position) => position.meal.price * position.amount)
-            .reduce((oldPrice, newPrice) => oldPrice + newPrice, 0) || 0,
-      };
-    });
-  }, [order.positions]);
-
-  const addPositionHandler = (meal, amount) =>
-    setOrder((oldOrder) => {
-      const positions = [...oldOrder.positions];
-      const orderedPosition = positions.find((item) => item.meal.id === meal.id);
-      orderedPosition
-        ? (orderedPosition.amount += +amount)
-        : positions.push({ meal: meal, amount: +amount });
-      return { ...oldOrder, positions: positions };
-    });
-  const removePositionHandler = (meal, amount) =>
-    setOrder((oldOrder) => {
-      let positions = [...oldOrder.positions];
-      const orderedPosition = positions.find((item) => item.meal.id === meal.id);
-      orderedPosition?.amount > amount
-        ? (orderedPosition.amount -= +amount)
-        : (positions = positions.filter((item) => item.meal.id !== meal.id));
-      return { ...oldOrder, positions: positions };
-    });
+  const [order, dispatchOrder] = useReducer(orderReducer, {
+    positions: [],
+    totalAmount: 0,
+    totalPrice: 0,
+  });
 
   return (
     <OrderContext.Provider
       value={{
-        order: order,
-        addOrderPosition: addPositionHandler,
-        removeOrderPosition: removePositionHandler,
+        positions: order.positions,
+        totalAmount: order.totalAmount,
+        totalPrice: order.totalPrice,
+        addOrderPosition: (position) => dispatchOrder({ type: 'ADD', position: position }),
+        removeOrderPosition: (position) => dispatchOrder({ type: 'REMOVE', position: position }),
       }}
     >
       {props.children}

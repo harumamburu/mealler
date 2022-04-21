@@ -9,7 +9,7 @@ import styles from './CartButton.module.css';
 
 const CartButton = () => {
   const modalCtx = useContext(ModalContext);
-  const waiterCtx = useContext(OrderContext);
+  const orderContext = useContext(OrderContext);
 
   return (
     <Button className={styles.cartbutton} onClick={() => modalCtx.setModal('cart', true)}>
@@ -17,7 +17,7 @@ const CartButton = () => {
         <FontAwesomeIcon icon={faCartShopping} />
       </span>
       <span className={styles.title}>Your Cart</span>
-      <span className={styles.count}>{waiterCtx.order.totalAmount}</span>
+      <span className={styles.count}>{orderContext.totalAmount}</span>
     </Button>
   );
 };

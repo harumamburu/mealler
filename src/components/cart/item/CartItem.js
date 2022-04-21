@@ -8,10 +8,10 @@ import styles from './CartItem.module.css';
 const CartItem = (props) => {
   return (
     <li className={styles.cartitem}>
-      <MealItemDescription className={styles.description} meal={props.orderedItem.meal} />
-      <CartItemAmount name={props.orderedItem.meal.name} amount={props.orderedItem.amount} />
+      <MealItemDescription className={styles.description} meal={props.orderedItem} />
+      <CartItemAmount name={props.orderedItem.name} amount={props.orderedItem.amount} />
       <CartItemControls
-        orderedMeal={props.orderedItem.meal}
+        orderedMeal={props.orderedItem}
         onAdd={props.onAdd}
         onRemove={props.onRemove}
       />

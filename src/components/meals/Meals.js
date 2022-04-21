@@ -28,7 +28,7 @@ const MealsList = () => {
             <MealItem
               key={meal.id}
               meal={meal}
-              onOrder={(amount) => orderCtx.addOrderPosition(meal, amount)}
+              onOrder={(amount) => orderCtx.addOrderPosition({ ...meal, amount: amount })}
             />
           ))}
         </ul>
