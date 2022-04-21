@@ -1,7 +1,7 @@
-import Card from './ui/card/Card';
-import styles from './Greetings.module.css';
+import Card from '../../ui/card/Card';
+import styles from './GreetingsCard.module.css';
 
-const Greetings = () => {
+const GreetingsCard = () => {
   return (
     <Card className={styles.greetings}>
       <h2>Delicious Food, Delivered To You</h2>
@@ -17,4 +17,4 @@ const Greetings = () => {
   );
 };
 
-export default Greetings;
+export default GreetingsCard;

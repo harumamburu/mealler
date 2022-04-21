@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 
 import Cart from './components/cart/Cart';
-import Greetings from './components/Greetings';
-import MealsList from './components/meals/list/MealsList';
-import { MenuContextProvider } from './components/store/menu-context';
+import Meals from './components/meals/Meals';
 import ModalContext from './components/store/modal-context';
 import { OrderContextProvider } from './components/store/order-context';
 import Header from './components/layout/header/Header';
@@ -13,10 +11,9 @@ function App() {
   return (
     <OrderContextProvider>
       <Header />
-      <Greetings />
-      <MenuContextProvider>
-        <MealsList />
-      </MenuContextProvider>
+      <main>
+        <Meals />
+      </main>
       {modalCtx.modals.cart && <Cart />}
     </OrderContextProvider>
   );
