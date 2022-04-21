@@ -6,7 +6,7 @@ import MealsList from './components/meals/list/MealsList';
 import { MenuContextProvider } from './components/store/menu-context';
 import ModalContext from './components/store/modal-context';
 import { OrderContextProvider } from './components/store/order-context';
-import Header from './components/header/Header';
+import Header from './components/layout/header/Header';
 
 function App() {
   const modalCtx = useContext(ModalContext);
