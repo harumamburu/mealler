@@ -13,15 +13,11 @@ const CartButton = () => {
 
   return (
     <Button className={styles.cartbutton} onClick={() => modalCtx.setModal('cart', true)}>
-      <FontAwesomeIcon icon={faCartShopping} />
-      <label htmlFor="cartAmt">Your Cart</label>
-      <input
-        id="cartAmt"
-        type="text"
-        value={waiterCtx.order.totalAmount}
-        size={waiterCtx.order.totalAmount.toString.length}
-        readOnly
-      />
+      <span className={styles.icon}>
+        <FontAwesomeIcon icon={faCartShopping} />
+      </span>
+      <span className={styles.title}>Your Cart</span>
+      <span className={styles.count}>{waiterCtx.order.totalAmount}</span>
     </Button>
   );
 };
