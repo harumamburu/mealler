@@ -1,11 +1,13 @@
-.button {
+.shape {
   font: inherit;
   font-weight: bold;
   text-align: center;
   padding: 0.25rem 2rem;
   border-radius: 20px;
   cursor: pointer;
+}
 
+.button {
   color: #8a2b06;
   background-color: white;
   border: solid 1px #8a2b06;
@@ -26,4 +28,12 @@
 .mainbutton:hover,
 .mainbutton:active {
   background-color: #641e03;
+}
+
+.disabled,
+.disabled:hover,
+.disabled:active {
+  color: -internal-light-dark(black, white) !important;
+  background-color: gray;
+  border: none;
 }

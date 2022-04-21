@@ -21,7 +21,7 @@ const CartFooter = (props) => {
       </div>
       <div className={styles.controls}>
         <Button onClick={() => modalCtx.setModal('cart', false)}>Close</Button>
-        <Button isMain>Order</Button>
+        <Button {...(props.hasItems ? { isMain: true } : { disabled: true })}>Order</Button>
       </div>
     </footer>
   );
@@ -29,6 +29,7 @@ const CartFooter = (props) => {
 
 CartFooter.propTypes = {
   total: PropTypes.number.isRequired,
+  hasItems: PropTypes.bool,
 };
 
 export default CartFooter;

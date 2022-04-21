@@ -17,7 +17,7 @@ const MealItemControls = (props) => {
 
   const orderSubmitHandler = (event) => {
     event.preventDefault();
-    if (isValid) {
+    if (isValid && amount > 0) {
       props.onOrder(amount);
       setAmount(0);
     }

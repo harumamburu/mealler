@@ -21,7 +21,7 @@ const Cart = () => {
           />
         ))}
       </ul>
-      <CartFooter total={orderCtx.totalPrice} />
+      <CartFooter total={orderCtx.totalPrice} hasItems={orderCtx.positions.length > 0} />
     </Modal>
   );
 };
