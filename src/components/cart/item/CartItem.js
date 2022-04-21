@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import CartItemAmount from './CartItemAmount';
 import CartItemControls from './CartItemControls';
-import MealItemDescription from '../../../meals/item/MealItemDescription';
+import MealItemDescription from '../../meals/item/MealItemDescription';
 import styles from './CartItem.module.css';
 
 const CartItem = (props) => {

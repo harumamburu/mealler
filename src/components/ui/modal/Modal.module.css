@@ -2,9 +2,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
   height: 100vh;
   width: 100%;
+  z-index: 20;
   background-color: rgba(0, 0, 0, 0.66);
 }
 
@@ -12,14 +12,26 @@
   position: fixed;
   top: 30vh;
   left: calc(50% - 20rem);
-  z-index: 2;
   width: 40rem;
+  z-index: 30;
   overflow: hidden;
+  animation: slide-down 300ms ease-out forwards;
 }
 
 @media (max-width: 680px) {
   .modal {
-    left: 2.5%;
-    width: 95%;
+    left: 5%;
+    width: 90%;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

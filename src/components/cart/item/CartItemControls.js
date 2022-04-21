@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Button from '../../../ui/button/Button';
+import Button from '../../ui/button/Button';
 import styles from './CartItemControls.module.css';
 
 const CartItemControls = (props) => {
