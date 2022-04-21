@@ -1,4 +1,4 @@
-import Card from '../../ui/card/Card';
+import Card from '../ui/card/Card';
 import styles from './GreetingsCard.module.css';
 
 const GreetingsCard = () => {
