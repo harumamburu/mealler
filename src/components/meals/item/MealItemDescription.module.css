@@ -1,20 +1,17 @@
-.description {
-  font-weight: bold;
-}
-
 .description p {
   margin: 0.5rem 0;
 }
 
-.description .name {
+.description h4 {
   margin: 0;
 }
 
 .description .content {
-  font-weight: normal;
   font-style: italic;
 }
 
 .description .price {
-  color: #c77c42;
+  color: #ad5502;
+  font-weight: bold;
+  font-size: 1.1rem;
 }

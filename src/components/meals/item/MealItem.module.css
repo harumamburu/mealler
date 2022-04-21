@@ -1,17 +1,10 @@
 .meal {
   display: flex;
-  flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   border-bottom: 1px solid lightgrey;
-  margin: 0.5rem 0;
 }
 
 .meal:last-child {
   border-bottom: 0;
-}
-
-.description-block {
-  flex-basis: 70%;
 }

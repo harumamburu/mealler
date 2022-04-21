@@ -5,7 +5,7 @@ import styles from './MealItemDescription.module.css';
 const MealItemDescription = (props) => {
   return (
     <div className={`${styles.description} ${props.className}`}>
-      <h4 className={styles.name}>{props.meal.name}</h4>
+      <h4>{props.meal.name}</h4>
       {props.showDescription ? <p className={styles.content}>{props.meal.description}</p> : ''}
       <p className={styles.price}>{`$${props.meal.price}`}</p>
     </div>

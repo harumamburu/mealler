@@ -7,11 +7,7 @@ import styles from './MealItem.module.css';
 const MealItem = (props) => {
   return (
     <li className={styles.meal}>
-      <MealItemDescription
-        className={styles['description-block']}
-        meal={props.meal}
-        showDescription
-      />
+      <MealItemDescription meal={props.meal} showDescription />
       <MealItemControls name={props.meal.name} onOrder={props.onOrder} />
     </li>
   );
