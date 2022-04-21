@@ -1,12 +1,18 @@
 import CartButton from './CartButton';
 import styles from './Header.module.css';
+import background from '../../assets/meals.jpeg';
 
 const Header = () => {
   return (
-    <nav className={styles.header}>
-      <h1>Mealler</h1>
-      <CartButton />
-    </nav>
+    <>
+      <header className={styles.header}>
+        <h1>Mealler</h1>
+        <CartButton />
+      </header>
+      <div className={styles['background-image']}>
+        <img src={background} alt="table full of food" />
+      </div>
+    </>
   );
 };
 
