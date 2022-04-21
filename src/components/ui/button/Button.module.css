@@ -1,28 +1,29 @@
 .button {
   font: inherit;
+  font-weight: bold;
   text-align: center;
-  color: #7f2609;
-  background: white;
-  border: solid 1px #7f2609;
-  padding: 0.4rem 2.2rem;
+  padding: 0.25rem 2rem;
   border-radius: 20px;
+  cursor: pointer;
+
+  color: #8a2b06;
+  background-color: white;
+  border: solid 1px #8a2b06;
 }
 
 .button:hover,
 .button:active {
   color: white;
-  background: #7f2609;
-  cursor: pointer;
+  background-color: #8a2b06;
 }
 
 .mainbutton {
   color: white;
-  background: #7f2609;
+  background-color: #8a2b06;
   border: none;
 }
 
 .mainbutton:hover,
 .mainbutton:active {
-  background: #401305;
-  cursor: pointer;
+  background-color: #641e03;
 }

@@ -1,33 +1,3 @@
 .controls {
   text-align: right;
 }
-
-.controls div {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-
-.controls input {
-  margin-left: 1rem;
-  width: 3rem;
-  padding: 0.3rem;
-  border: 1px solid lightgray;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-}
-
-.invalid input {
-  background-color: mistyrose;
-  border-color: maroon;
-  box-shadow:
-    0 0 5px 1px darkred,
-    0 0 4px 2px red,
-    0 0 3px 3px salmon;
-}
-
-.controls input:hover,
-.controls input:active,
-.controls input:focus {
-  outline: none;
-}

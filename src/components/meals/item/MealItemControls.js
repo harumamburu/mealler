@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../ui/button/Button';
+import Input from '../../ui/input/Input';
 import styles from './MealItemControls.module.css';
 
 const MealItemControls = (props) => {
@@ -14,7 +15,8 @@ const MealItemControls = (props) => {
     setAmount(input);
   };
 
-  const orderClickHandler = () => {
+  const orderSubmitHandler = (event) => {
+    event.preventDefault();
     if (isValid) {
       props.onOrder(amount);
       setAmount(0);
@@ -22,22 +24,23 @@ const MealItemControls = (props) => {
   };
 
   return (
-    <div className={`${styles.controls} ${props.className || ''} ${isValid ? '' : styles.invalid}`}>
-      <div>
-        <label htmlFor={props.name}>Amount</label>
-        <input
-          id={props.name}
-          type="number"
-          min="1"
-          step="1"
-          value={amount}
-          onChange={inputChangeHandler}
-        />
-      </div>
-      <Button isMain onClick={orderClickHandler}>
+    <form className={styles.controls} onSubmit={orderSubmitHandler}>
+      <Input
+        label="Amount"
+        isValid={isValid}
+        input={{
+          id: `amount_${props.name}`,
+          type: 'number',
+          min: '1',
+          step: '1',
+          value: amount,
+          onChange: inputChangeHandler,
+        }}
+      />
+      <Button type="submit" isMain>
         + Add
       </Button>
-    </div>
+    </form>
   );
 };
 
