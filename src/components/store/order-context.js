@@ -9,17 +9,34 @@ const OrderContext = React.createContext({
   removeOrderPosition: () => {},
 });
 
+const DEFAULT_STATE = {
+  positions: [],
+  totalAmount: 0,
+  totalPrice: 0,
+};
+
 const orderReducer = (oldOrder, action) => {
   const position = action.position;
   let positions = [...oldOrder.positions];
-  const orderedPosition = positions.find((item) => item.id === position.id);
+  const orderedPositionInd = positions.findIndex((item) => item.id === position.id);
+  const orderedPosition = positions[orderedPositionInd];
 
   if (action.type === 'ADD') {
-    orderedPosition ? (orderedPosition.amount += +position.amount) : positions.push(position);
+    orderedPosition
+      ? (positions[orderedPositionInd] = {
+          ...orderedPosition,
+          amount: orderedPosition.amount + +position.amount,
+        })
+      : positions.push({ ...position });
   } else if (action.type === 'REMOVE') {
     orderedPosition?.amount > +position.amount
-      ? (orderedPosition.amount -= +position.amount)
+      ? (positions[orderedPositionInd] = {
+          ...orderedPosition,
+          amount: orderedPosition.amount - +position.amount,
+        })
       : (positions = positions.filter((item) => item.id !== position.id));
+  } else {
+    return DEFAULT_STATE;
   }
 
   return {
@@ -30,11 +47,7 @@ const orderReducer = (oldOrder, action) => {
 };
 
 export const OrderContextProvider = (props) => {
-  const [order, dispatchOrder] = useReducer(orderReducer, {
-    positions: [],
-    totalAmount: 0,
-    totalPrice: 0,
-  });
+  const [order, dispatchOrder] = useReducer(orderReducer, DEFAULT_STATE);
 
   return (
     <OrderContext.Provider
