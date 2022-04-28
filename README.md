@@ -14,29 +14,29 @@ React app for take-away ordering.
 <pre style="background: none">
 Header
   CartButton (ModalCtx, OrderCtx)
-GreetingPanel
-MealsList (MenuCtx, OrderCtx)
+GreetingCard
+Meals (OrderCtx)
   MealItem
     MealDescription
     MealItemControls
-Cart
-  CartList
-    CartItem
-      MealDescription
-      CartItemAmount
-      CartItemControls
+Cart (OrderCtx)
+  CartItem
+    MealDescription
+    CartItemControls
   CartFooter
 UI
-  Card
   Button
+  Card
   Modal
+  Input
 </pre>
 
 ## State:
 ModalContext=> modals: { cart: false }, setModal: () => {}  
-MenuContext=> menu: [Meal]  
 OrderContext=>  
-&nbsp;&nbsp;order: {Order},  
+&nbsp;&nbsp;positions: {Order},  
+&nbsp;&nbsp;totalAmount: number,  
+&nbsp;&nbsp;totalPrice: number,  
 &nbsp;&nbsp;addOrderPosition: () => {},  
 &nbsp;&nbsp;removeOrderPosition: () => {}  
 
@@ -51,11 +51,9 @@ Meal:
   name: string
   description: string
   price: number
-OrderedMeal:
-  meal: Meal
+OrderedMeal: extends Meal
+  ...
   amount: number
 Order:
   positions: [OrderedMeal]
-  totalAmount: number
-  totalPrice: number
 </pre>

@@ -41,7 +41,7 @@ const orderReducer = (oldOrder, action) => {
 
   return {
     positions: positions,
-    totalAmount: positions.reduce((total, position) => total + +position.amount, 0),
+    totalAmount: positions.reduce((amount, position) => amount + +position.amount, 0),
     totalPrice: positions.reduce((price, position) => price + position.price * +position.amount, 0),
   };
 };
