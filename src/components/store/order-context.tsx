@@ -1,7 +1,17 @@
 import React, { useReducer } from 'react';
-import PropTypes from 'prop-types';
+import Order from '../../model/Order';
 
-const OrderContext = React.createContext({
+import OrderedMeal from '../../model/OrderedMeal';
+
+type OrderContext = {
+  positions: OrderedMeal[];
+  totalAmount: number;
+  totalPrice: number;
+  addOrderPosition: (position: OrderedMeal) => void;
+  removeOrderPosition: (position: OrderedMeal) => void;
+};
+
+const OrderContext = React.createContext<OrderContext>({
   positions: [],
   totalAmount: 0,
   totalPrice: 0,
@@ -9,26 +19,31 @@ const OrderContext = React.createContext({
   removeOrderPosition: () => {},
 });
 
-const DEFAULT_STATE = {
+const DEFAULT_STATE: Order = {
   positions: [],
   totalAmount: 0,
   totalPrice: 0,
 };
 
-const orderReducer = (oldOrder, action) => {
+enum Action {
+  ADD,
+  REMOVE,
+}
+
+const orderReducer = (oldOrder: Order, action: { type: Action; position: OrderedMeal }) => {
   const position = action.position;
   let positions = [...oldOrder.positions];
   const orderedPositionInd = positions.findIndex((item) => item.id === position.id);
   const orderedPosition = positions[orderedPositionInd];
 
-  if (action.type === 'ADD') {
+  if (action.type === Action.ADD) {
     orderedPosition
       ? (positions[orderedPositionInd] = {
           ...orderedPosition,
           amount: orderedPosition.amount + +position.amount,
         })
       : positions.push({ ...position });
-  } else if (action.type === 'REMOVE') {
+  } else if (action.type === Action.REMOVE) {
     orderedPosition?.amount > +position.amount
       ? (positions[orderedPositionInd] = {
           ...orderedPosition,
@@ -46,26 +61,20 @@ const orderReducer = (oldOrder, action) => {
   };
 };
 
-export const OrderContextProvider = (props) => {
+export const OrderContextProvider: React.FC<{
+  children?: React.ReactNode;
+}> = (props) => {
   const [order, dispatchOrder] = useReducer(orderReducer, DEFAULT_STATE);
 
-  return (
-    <OrderContext.Provider
-      value={{
-        positions: order.positions,
-        totalAmount: order.totalAmount,
-        totalPrice: order.totalPrice,
-        addOrderPosition: (position) => dispatchOrder({ type: 'ADD', position: position }),
-        removeOrderPosition: (position) => dispatchOrder({ type: 'REMOVE', position: position }),
-      }}
-    >
-      {props.children}
-    </OrderContext.Provider>
-  );
-};
+  const contextValue: OrderContext = {
+    positions: order.positions,
+    totalAmount: order.totalAmount,
+    totalPrice: order.totalPrice,
+    addOrderPosition: (position) => dispatchOrder({ type: Action.ADD, position: position }),
+    removeOrderPosition: (position) => dispatchOrder({ type: Action.REMOVE, position: position }),
+  };
 
-OrderContextProvider.propTypes = {
-  children: PropTypes.node,
+  return <OrderContext.Provider value={contextValue}>{props.children}</OrderContext.Provider>;
 };
 
 export default OrderContext;

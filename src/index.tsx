@@ -4,7 +4,7 @@ import App from './App';
 import { ModalContextProvider } from './components/store/modal-context';
 import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <ModalContextProvider>
     <App />

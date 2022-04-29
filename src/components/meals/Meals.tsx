@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 
 import Card from '../ui/card/Card';
 import GreetingsCard from './GreetingsCard';
+import Meal from '../../model/Meal';
 import MealItem from './item/MealItem';
 import OrderContext from '../store/order-context';
 import styles from './Meals.module.css';
 
-const MENU = [
+const MENU: Meal[] = [
   { id: 'me1', name: 'Sushi', description: 'Finest fish and veggies', price: 22.99 },
   { id: 'me2', name: 'Schnitzel', description: 'German special', price: 16.5 },
   { id: 'me3', name: 'Barbeque Burger', description: 'American, raw, meaty', price: 12.99 },
@@ -14,7 +15,7 @@ const MENU = [
 ];
 
 const MealsList = () => {
-  const [menu, setMenu] = useState([]);
+  const [menu, setMenu] = useState(new Array<Meal>());
   const orderCtx = useContext(OrderContext);
 
   useEffect(() => setMenu(MENU), []);

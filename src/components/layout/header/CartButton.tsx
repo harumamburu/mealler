@@ -36,6 +36,4 @@ const CartButton = () => {
   );
 };
 
-CartButton.propTypes = {};
-
 export default CartButton;

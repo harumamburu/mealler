@@ -6,7 +6,7 @@ import ModalContext from './components/store/modal-context';
 import { OrderContextProvider } from './components/store/order-context';
 import Header from './components/layout/header/Header';
 
-function App() {
+const App = () => {
   const modalCtx = useContext(ModalContext);
   return (
     <OrderContextProvider>
@@ -17,6 +17,6 @@ function App() {
       {modalCtx.modals.cart && <Cart />}
     </OrderContextProvider>
   );
-}
+};
 
 export default App;

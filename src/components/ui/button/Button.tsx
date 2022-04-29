@@ -1,8 +1,15 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import styles from './Button.module.css';
 
-const Button = (props) => {
+const Button: React.FC<{
+  className?: string;
+  isMain?: boolean;
+  disabled?: boolean;
+  type?: 'submit' | 'reset' | 'button';
+  onClick?: () => void;
+  children: React.ReactNode;
+}> = (props) => {
   const style = props.disabled ? styles.disabled : props.isMain ? styles.mainbutton : styles.button;
 
   return (
@@ -15,15 +22,6 @@ const Button = (props) => {
       {props.children}
     </button>
   );
-};
-
-Button.propTypes = {
-  className: PropTypes.string,
-  isMain: PropTypes.bool,
-  disabled: PropTypes.bool,
-  type: PropTypes.string,
-  onClick: PropTypes.func,
-  children: PropTypes.node,
 };
 
 export default Button;

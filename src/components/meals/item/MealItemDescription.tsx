@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types';
-
+import Meal from '../../../model/Meal';
 import styles from './MealItemDescription.module.css';
 
-const MealItemDescription = (props) => {
+const MealItemDescription: React.FC<{
+  meal: Meal;
+  showDescription?: boolean;
+  className?: string;
+}> = (props) => {
   return (
     <div className={`${styles.description} ${props.className}`}>
       <h4>{props.meal.name}</h4>
@@ -10,12 +13,6 @@ const MealItemDescription = (props) => {
       <p className={styles.price}>{`$${props.meal.price}`}</p>
     </div>
   );
-};
-
-MealItemDescription.propTypes = {
-  className: PropTypes.string,
-  meal: PropTypes.object.isRequired,
-  showDescription: PropTypes.bool,
 };
 
 export default MealItemDescription;

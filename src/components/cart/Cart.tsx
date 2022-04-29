@@ -5,12 +5,14 @@ import CartItem from './item/CartItem';
 import Modal from '../ui/modal/Modal';
 import OrderContext from '../store/order-context';
 import styles from './Cart.module.css';
+import ModalContext from '../store/modal-context';
 
 const Cart = () => {
+  const modalCtx = useContext(ModalContext);
   const orderCtx = useContext(OrderContext);
 
   return (
-    <Modal>
+    <Modal onBackdropClick={() => modalCtx.setModal('cart', false)}>
       <ul className={styles.cartlist}>
         {orderCtx.positions.map((orderedItem) => (
           <CartItem
@@ -21,7 +23,11 @@ const Cart = () => {
           />
         ))}
       </ul>
-      <CartFooter total={orderCtx.totalPrice} hasItems={orderCtx.positions.length > 0} />
+      <CartFooter
+        total={orderCtx.totalPrice}
+        hasItems={orderCtx.positions.length > 0}
+        closeModal={() => modalCtx.setModal('cart', false)}
+      />
     </Modal>
   );
 };

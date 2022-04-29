@@ -1,21 +1,24 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import styles from './MealItemControls.module.css';
 
-const MealItemControls = (props) => {
+const MealItemControls: React.FC<{
+  name: string;
+  onOrder: (amount: number) => void;
+  className?: string;
+}> = (props) => {
   const [amount, setAmount] = useState(0);
   const [isValid, setisValid] = useState(true);
 
-  const inputChangeHandler = (event) => {
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
-    setisValid(+input > 0 && input % 1 === 0);
-    setAmount(input);
+    setisValid(+input > 0 && +input % 1 === 0);
+    setAmount(+input);
   };
 
-  const orderSubmitHandler = (event) => {
+  const orderSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     if (isValid && amount > 0) {
       props.onOrder(amount);
@@ -42,12 +45,6 @@ const MealItemControls = (props) => {
       </Button>
     </form>
   );
-};
-
-MealItemControls.propTypes = {
-  className: PropTypes.string,
-  name: PropTypes.string,
-  onOrder: PropTypes.func.isRequired,
 };
 
 export default MealItemControls;

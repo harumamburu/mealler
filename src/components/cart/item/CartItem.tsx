@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
-
 import CartItemControls from './CartItemControls';
 import MealItemDescription from '../../meals/item/MealItemDescription';
 import styles from './CartItem.module.css';
+import OrderedMeal from '../../../model/OrderedMeal';
 
-const CartItem = (props) => {
+const CartItem: React.FC<{
+  orderedItem: OrderedMeal;
+  onAdd: (amount: number) => void;
+  onRemove: (amount: number) => void;
+}> = (props) => {
   return (
     <li className={styles.cartitem}>
       <MealItemDescription className={styles.description} meal={props.orderedItem} />
@@ -18,12 +21,6 @@ const CartItem = (props) => {
       />
     </li>
   );
-};
-
-CartItem.propTypes = {
-  orderedItem: PropTypes.object.isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
 };
 
 export default CartItem;
