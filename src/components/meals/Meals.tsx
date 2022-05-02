@@ -6,7 +6,7 @@ import GreetingsCard from './GreetingsCard';
 import MealItem from './item/MealItem';
 import OrderContext from '../store/order-context';
 import Spinner from '../ui/spinner/Spinner';
-import useHttp from '../hooks/use-http';
+import useHttp, { Status } from '../hooks/use-http';
 import styles from './Meals.module.css';
 
 const MealsList = () => {
@@ -21,7 +21,7 @@ const MealsList = () => {
     <>
       <GreetingsCard />
       <Card className={styles.meals}>
-        {status === 'pending' && <Spinner />}
+        {status === Status.PENDING && <Spinner />}
         {error !== '' && (
           <>
             <p>
