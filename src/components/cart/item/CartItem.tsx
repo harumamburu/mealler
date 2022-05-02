@@ -3,11 +3,11 @@ import MealItemDescription from '../../meals/item/MealItemDescription';
 import styles from './CartItem.module.css';
 import OrderedMeal from '../../../model/OrderedMeal';
 
-const CartItem: React.FC<{
+const CartItem = (props: {
   orderedItem: OrderedMeal;
   onAdd: (amount: number) => void;
   onRemove: (amount: number) => void;
-}> = (props) => {
+}) => {
   return (
     <li className={styles.cartitem}>
       <MealItemDescription className={styles.description} meal={props.orderedItem} />

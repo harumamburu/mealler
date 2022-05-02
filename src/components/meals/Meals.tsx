@@ -15,7 +15,7 @@ const MENU: Meal[] = [
 ];
 
 const MealsList = () => {
-  const [menu, setMenu] = useState(new Array<Meal>());
+  const [menu, setMenu] = useState([] as Meal[]);
   const orderCtx = useContext(OrderContext);
 
   useEffect(() => setMenu(MENU), []);

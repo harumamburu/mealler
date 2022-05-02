@@ -1,12 +1,16 @@
 {
   "settings": {
-    "react": { "version": "detect" }
+    "react": { "version": "detect" },
+    "import/resolver": {
+      "typescript": {}
+    }
   },
   "env": {
     "browser": true,
     "es2021": true
   },
   "extends": ["plugin:react/recommended", "google", "plugin:prettier/recommended"],
+  "parser":"@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -19,6 +23,8 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
     "max-len": ["error", { "code": 100 }],
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

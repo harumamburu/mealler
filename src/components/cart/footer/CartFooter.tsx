@@ -1,11 +1,7 @@
 import Button from '../../ui/button/Button';
 import styles from './CartFooter.module.css';
 
-const CartFooter: React.FC<{
-  total: number;
-  hasItems: boolean;
-  closeModal: () => void;
-}> = (props) => {
+const CartFooter = (props: { total: number; hasItems: boolean; closeModal: () => void }) => {
   return (
     <footer>
       <div className={styles.total}>

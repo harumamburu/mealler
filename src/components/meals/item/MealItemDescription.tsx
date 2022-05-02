@@ -1,11 +1,11 @@
 import Meal from '../../../model/Meal';
 import styles from './MealItemDescription.module.css';
 
-const MealItemDescription: React.FC<{
+const MealItemDescription = (props: {
   meal: Meal;
   showDescription?: boolean;
   className?: string;
-}> = (props) => {
+}) => {
   return (
     <div className={`${styles.description} ${props.className}`}>
       <h4>{props.meal.name}</h4>

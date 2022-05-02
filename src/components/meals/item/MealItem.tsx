@@ -3,7 +3,7 @@ import MealItemControls from './MealItemControls';
 import MealItemDescription from './MealItemDescription';
 import styles from './MealItem.module.css';
 
-const MealItem: React.FC<{meal: Meal, onOrder: (amount: number) => void}> = (props) => {
+const MealItem = (props: { meal: Meal; onOrder: (amount: number) => void }) => {
   return (
     <li className={styles.meal}>
       <MealItemDescription meal={props.meal} showDescription />

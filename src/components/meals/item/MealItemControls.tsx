@@ -4,11 +4,11 @@ import Button from '../../ui/button/Button';
 import Input from '../../ui/input/Input';
 import styles from './MealItemControls.module.css';
 
-const MealItemControls: React.FC<{
+const MealItemControls = (props: {
   name: string;
   onOrder: (amount: number) => void;
   className?: string;
-}> = (props) => {
+}) => {
   const [amount, setAmount] = useState(0);
   const [isValid, setisValid] = useState(true);
 
