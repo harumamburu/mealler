@@ -1,51 +1,38 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { fetchMeals } from '../../lib/api';
 import Card from '../ui/card/Card';
 import GreetingsCard from './GreetingsCard';
-import Meal from '../../model/Meal';
 import MealItem from './item/MealItem';
 import OrderContext from '../store/order-context';
 import Spinner from '../ui/spinner/Spinner';
+import useHttp from '../hooks/use-http';
 import styles from './Meals.module.css';
 
 const MealsList = () => {
-  const [menu, setMenu] = useState([] as Meal[]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const orderCtx = useContext(OrderContext);
-
-  const fetchMealsHandler = useCallback(async () => {
-    let meals = [] as Meal[];
-    setIsLoading(true);
-    try {
-      meals = await fetchMeals();
-    } catch (err) {
-      setError((err as Error).message);
-    }
-    setMenu(meals);
-    setIsLoading(false);
-  }, []);
+  const { data: menu, error, status, httpCallback } = useHttp(fetchMeals, true);
 
   useEffect(() => {
-    fetchMealsHandler();
-  }, [fetchMealsHandler]);
+    httpCallback();
+  }, [httpCallback]);
 
   return (
     <>
       <GreetingsCard />
       <Card className={styles.meals}>
-        {isLoading && <Spinner />}
-        {error ? (
+        {status === 'pending' && <Spinner />}
+        {error !== '' && (
           <>
             <p>
               Something went wrong and we couldn&apos;t load the menu :/ Please, try again later.
             </p>
             <p>{error}</p>
           </>
-        ) : (
+        )}
+        {menu && (
           <ul>
-            {menu.map((meal) => (
+            {menu?.map((meal) => (
               <MealItem
                 key={meal.id}
                 meal={meal}

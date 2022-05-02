@@ -14,5 +14,5 @@ export const fetchMeals = async () => {
     throw new Error('Data is null');
   }
 
-  return Object.entries(data).map(([key, value]) => ({ ...value, id: key }));
+  return Object.entries(data).map(([key, value]) => ({ ...value, id: key } as Meal));
 };
