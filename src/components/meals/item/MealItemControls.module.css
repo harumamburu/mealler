@@ -1,3 +1,31 @@
 .controls {
   text-align: right;
 }
+
+.amount {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.amount label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.amount input {
+  width: 3rem;
+  padding: 0.2rem 0.3rem;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  outline: none;
+}
+
+.invalid input {
+  background-color: mistyrose;
+  border-color: maroon;
+  box-shadow:
+    0 0 5px 1px darkred,
+    0 0 4px 2px red,
+    0 0 3px 3px salmon;
+}
