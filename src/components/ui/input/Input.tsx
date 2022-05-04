@@ -11,9 +11,9 @@ const Input = (props: {
 }) => {
   return (
     <div className={props.className}>
-      {props.label && <label htmlFor={props.config.id}>Amount</label>}
+      {props.label && <label htmlFor={props.id}>{props.label}</label>}
       <input
-        id={props.config.id}
+        id={props.id}
         name={props.name}
         value={props.value}
         onChange={props.onChange}
