@@ -23,7 +23,7 @@
 
 .invalid input {
   background-color: mistyrose;
-  border-color: maroon;
+  border: 1px solid maroon;
   box-shadow:
     0 0 5px 1px darkred,
     0 0 4px 2px red,
