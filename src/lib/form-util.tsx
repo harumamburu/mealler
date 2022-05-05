@@ -102,6 +102,30 @@ export const maxLengthRule = (inputName: string, maxCharacters: number): InputVa
   };
 };
 
+export const matchesRegexpRule = (
+  inputName: string,
+  regexp: RegExp,
+  formatString: string
+): InputValidationRule => {
+  return {
+    name: 'matchRegexp',
+    message: `${inputName} should be of a specific format: ${formatString}`,
+    validate: (inputValue) => !!inputValue.match(regexp),
+  };
+};
+
+export const doesntMatchRegexpRule = (
+  inputName: string,
+  regexp: RegExp,
+  formatString: string
+): InputValidationRule => {
+  return {
+    name: 'notMatchRegexp',
+    message: `${inputName} should be of a specific format: ${formatString}`,
+    validate: (inputValue) => !inputValue.match(regexp),
+  };
+};
+
 export const getChangeEventValue = (event: React.ChangeEvent<HTMLInputElement>) => {
   const { type, name, value, checked } = event.target;
   if (type === 'checkbox') {

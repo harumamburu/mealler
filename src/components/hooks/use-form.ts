@@ -16,6 +16,7 @@ const useForm = (formConfig: FormConfig) => {
       const { name } = event.target;
       const input = { ...form[name] };
       input.value = getChangeEventValue(event);
+      input.errorMessages = [];
 
       const isValid = input.validations.reduce((result, validation) => {
         const isValid = validation.validate(input.value);
