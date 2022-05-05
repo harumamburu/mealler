@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import Cart from './components/cart/Cart';
-import Checkout from './components/checkout/checkout';
+import Checkout from './components/checkout/Checkout';
 import Meals from './components/meals/Meals';
 import ModalContext from './components/store/modal-context';
 import { OrderContextProvider } from './components/store/order-context';

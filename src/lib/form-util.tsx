@@ -101,3 +101,11 @@ export const maxLengthRule = (inputName: string, maxCharacters: number): InputVa
     validate: (inputValue) => inputValue.length <= maxCharacters,
   };
 };
+
+export const getChangeEventValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const { type, name, value, checked } = event.target;
+  if (type === 'checkbox') {
+    return checked ? name : '';
+  }
+  return value;
+};

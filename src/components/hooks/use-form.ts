@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { FormConfig } from '../../lib/form-util';
+import { FormConfig, getChangeEventValue } from '../../lib/form-util';
 
 const useForm = (formConfig: FormConfig) => {
   const [form, setForm] = useState(formConfig);
@@ -13,9 +13,9 @@ const useForm = (formConfig: FormConfig) => {
 
   const onInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
+      const { name } = event.target;
       const input = { ...form[name] };
-      input.value = value;
+      input.value = getChangeEventValue(event);
 
       const isValid = input.validations.reduce((result, validation) => {
         const isValid = validation.validate(input.value);
