@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import Order from '../../model/Order';
+import Order from '../model/Order';
 
-import OrderedMeal from '../../model/OrderedMeal';
+import OrderedMeal from '../model/OrderedMeal';
 
 type OrderContext = {
   positions: OrderedMeal[];

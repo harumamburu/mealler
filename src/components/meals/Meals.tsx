@@ -4,9 +4,9 @@ import { fetchMeals } from '../../lib/api';
 import Card from '../ui/card/Card';
 import GreetingsCard from './GreetingsCard';
 import MealItem from './item/MealItem';
-import OrderContext from '../store/order-context';
+import OrderContext from '../../store/order-context';
 import Spinner from '../ui/spinner/Spinner';
-import useHttp, { Status } from '../hooks/use-http';
+import useHttp, { Status } from '../../hooks/use-http';
 import styles from './Meals.module.css';
 
 const MealsList = () => {

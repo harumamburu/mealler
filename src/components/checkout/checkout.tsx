@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import Button from '../ui/button/Button';
 import checkoutFormConfig from './checkout-form.config';
 import Modal from '../ui/modal/Modal';
-import ModalContext from '../store/modal-context';
-import useForm from '../hooks/use-form';
+import ModalContext from '../../store/modal-context';
+import useForm from '../../hooks/use-form';
 import styles from './Checkout.module.css';
 
 const Checkout = () => {

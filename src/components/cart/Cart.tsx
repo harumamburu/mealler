@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import CartFooter from './footer/CartFooter';
 import CartItem from './item/CartItem';
 import Modal from '../ui/modal/Modal';
-import OrderContext from '../store/order-context';
+import OrderContext from '../../store/order-context';
 import styles from './Cart.module.css';
-import ModalContext from '../store/modal-context';
+import ModalContext from '../../store/modal-context';
 
 const Cart = () => {
   const modalCtx = useContext(ModalContext);

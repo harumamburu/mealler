@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { FormConfig, getChangeEventValue } from '../../lib/form-util';
+import { FormConfig, getChangeEventValue } from '../lib/form-util';
 
 const useForm = (formConfig: FormConfig) => {
   const [form, setForm] = useState(formConfig);

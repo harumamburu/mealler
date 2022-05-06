@@ -3,8 +3,8 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../../ui/button/Button';
-import ModalContext from '../../store/modal-context';
-import OrderContext from '../../store/order-context';
+import ModalContext from '../../../store/modal-context';
+import OrderContext from '../../../store/order-context';
 import styles from './CartButton.module.css';
 
 const CartButton = () => {

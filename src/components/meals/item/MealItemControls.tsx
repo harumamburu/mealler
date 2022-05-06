@@ -4,7 +4,7 @@ import {
   FormConfig,
 } from '../../../lib/form-util';
 
-import useForm from '../../hooks/use-form';
+import useForm from '../../../hooks/use-form';
 import Button from '../../ui/button/Button';
 import styles from './MealItemControls.module.css';
 

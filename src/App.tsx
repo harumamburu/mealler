@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import Cart from './components/cart/Cart';
 import Checkout from './components/checkout/Checkout';
 import Meals from './components/meals/Meals';
-import ModalContext from './components/store/modal-context';
-import { OrderContextProvider } from './components/store/order-context';
+import ModalContext from './store/modal-context';
+import { OrderContextProvider } from './store/order-context';
 import Header from './components/layout/header/Header';
 
 const App = () => {
