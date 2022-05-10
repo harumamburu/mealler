@@ -1,0 +1,18 @@
+.page {
+  width: 95%;
+  margin: auto;
+  margin-top: -15rem;
+  position: relative;
+}
+
+.http {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.http img {
+  max-width: 95%;
+}
