@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AuthContext from '../../../store/auth-context';
 import { faDoorOpen, faDoorClosed, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -18,15 +19,6 @@ const ProfileControls = () => {
     return () => clearTimeout(animationTimout);
   }, [isAnimated]);
 
-  const signInHandler = () => {
-    setIsAnimated(true);
-    modalCtx.setModal('signin', true);
-  };
-  const signoutHandler = () => {
-    setIsAnimated(true);
-    authCtx.logout();
-  };
-
   return (
     <>
       {!authCtx.userId && (
@@ -34,23 +26,30 @@ const ProfileControls = () => {
           className={`${styles.icon} ${isAnimated ? styles.press : ''}`}
           size="2x"
           icon={faDoorOpen}
-          onClick={signInHandler}
+          onPointerDown={() => setIsAnimated(true)}
+          onClick={() => modalCtx.setModal('signin', true)}
         />
       )}
       {authCtx.userId && (
-        <FontAwesomeIcon
-          className={`${styles.icon} ${isAnimated ? styles.press : ''}`}
-          size="2x"
-          icon={faUser}
-        />
+        <Link to="/profile" className={styles.icon}>
+          <FontAwesomeIcon
+            className={isAnimated ? styles.press : ''}
+            size="2x"
+            icon={faUser}
+            onPointerDown={() => setIsAnimated(true)}
+          />
+        </Link>
       )}
       {authCtx.userId && (
-        <FontAwesomeIcon
-          className={`${styles.icon} ${isAnimated ? styles.press : ''}`}
-          size="2x"
-          icon={faDoorClosed}
-          onClick={signoutHandler}
-        />
+        <Link to="/" className={styles.icon}>
+          <FontAwesomeIcon
+            className={isAnimated ? styles.press : ''}
+            size="2x"
+            icon={faDoorClosed}
+            onPointerDown={() => setIsAnimated(true)}
+            onClick={() => authCtx.logout()}
+          />
+        </Link>
       )}
     </>
   );

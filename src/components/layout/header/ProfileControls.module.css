@@ -1,6 +1,10 @@
-.icon:active,
-.icon:focus,
-.icon:hover {
+.icon {
+  color: inherit;
+}
+
+.icon svg:active,
+.icon svg:focus,
+.icon svg:hover {
   color: #4d1601;
   border-color: white;
 }
