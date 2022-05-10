@@ -1,25 +1,55 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
+import AuthContext from '../../store/auth-context';
 import Button from '../ui/button/Button';
+import { logIn } from '../../lib/api';
 import Modal from '../ui/modal/Modal';
 import ModalContext from '../../store/modal-context';
 import { signInFormConfig } from './signin-form.config';
 import useForm from '../../hooks/use-form';
+import useHttp, { Status } from '../../hooks/use-http';
 import styles from './SignIn.module.css';
+import Spinner from '../ui/spinner/Spinner';
 
 const SignIn = () => {
   const modalCtx = useContext(ModalContext);
-  const [renderForm] = useForm(signInFormConfig);
+  const authCtx = useContext(AuthContext);
+  const [renderInputs, isFormValid, getFormValues] = useForm(signInFormConfig);
+  const { data, error, status, httpCallback } = useHttp(logIn);
+
+  const submitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!isFormValid) {
+      return;
+    }
+    const form = getFormValues() as { email: string; password: string };
+    httpCallback(form.email, form.password);
+  };
+
+  useEffect(() => {
+    if (status === Status.COMPLETED && data && !error) {
+      authCtx.login(data.localId, data.idToken, +data.expiresIn);
+      modalCtx.setModal('signin', false);
+    }
+  }, [data, status, error]);
 
   return (
     <Modal cardClassName={styles.signin} onBackdropClick={() => modalCtx.setModal('signin', false)}>
-      <h1 className={styles.header}>Sign In</h1>
-      <>{renderForm()}</>
-      <div className={styles.controls}>
-        <Button onClick={() => modalCtx.setModal('signin', false)}>Cancel</Button>
-        <Button main>Sign In</Button>
-      </div>
-      <p className={styles.signup}>
+      <h1 className={`${styles.header} ${styles.centered}`}>Sign In</h1>
+      <form onSubmit={submitHandler}>
+        <>{renderInputs()}</>
+        {status !== Status.PENDING && (
+          <div className={styles.controls}>
+            <Button onClick={() => modalCtx.setModal('signin', false)}>Cancel</Button>
+            <Button main type="submit">
+              Sign In
+            </Button>
+          </div>
+        )}
+        {status === Status.PENDING && <Spinner />}
+        {error && <p className={`${styles.error} ${styles.centered}`}>{error}</p>}
+      </form>
+      <p className={styles.centered}>
         New to the service? <a href="">Sign Up</a>
       </p>
     </Modal>

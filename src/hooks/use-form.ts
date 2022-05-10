@@ -5,7 +5,7 @@ import { FormConfig, getChangeEventValue } from '../lib/form-util';
 const useForm = (formConfig: FormConfig) => {
   const [form, setForm] = useState(formConfig);
 
-  const renderForm = () =>
+  const renderInputs = () =>
     Object.values(form).map((input) => {
       const { value, isTouched, isValid, errorMessages } = input;
       return input.renderInput(value, !isTouched || isValid, errorMessages, onInputChange);
@@ -42,10 +42,14 @@ const useForm = (formConfig: FormConfig) => {
     [form]
   );
 
-  const resetForm = () => {
-    const formValues = Object.entries(form).reduce((values, [key, input]) => {
+  const getFormValues = () => {
+    return Object.entries(form).reduce((values, [key, input]) => {
       return { ...values, [key]: input.value };
     }, {});
+  };
+
+  const resetForm = () => {
+    const formValues = getFormValues();
 
     const newForm = { ...form };
     Object.values(newForm).forEach((input) => {
@@ -59,7 +63,7 @@ const useForm = (formConfig: FormConfig) => {
     return formValues;
   };
 
-  return [renderForm, isFormValid, resetForm];
+  return [renderInputs, isFormValid, getFormValues, resetForm];
 };
 
 export default useForm;

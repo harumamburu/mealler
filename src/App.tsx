@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 
+import { AuthContextProvider } from './store/auth-context';
 import Cart from './components/cart/Cart';
 import Checkout from './components/checkout/Checkout';
 import Meals from './components/meals/Meals';
@@ -13,13 +14,15 @@ const App = () => {
 
   return (
     <OrderContextProvider>
-      <Header />
-      <main>
-        <Meals />
-      </main>
-      {modalCtx.modals.cart && <Cart />}
-      {modalCtx.modals.checkout && <Checkout />}
-      {modalCtx.modals.signin && <SignIn />}
+      <AuthContextProvider>
+        <Header />
+        <main>
+          <Meals />
+        </main>
+        {modalCtx.modals.cart && <Cart />}
+        {modalCtx.modals.checkout && <Checkout />}
+        {modalCtx.modals.signin && <SignIn />}
+      </AuthContextProvider>
     </OrderContextProvider>
   );
 };

@@ -2,8 +2,12 @@
   width: 30rem;
   left: calc(50% - 15rem);
 }
-.signin .header {
+
+.signin .centered {
   text-align: center;
+}
+
+.signin .header {
   margin: 1.5rem;
 }
 
@@ -36,7 +40,8 @@
   margin-bottom: 0.25rem;
 }
 
-.signin .input span {
+.signin .input span,
+.signin .error {
   font-style: italic;
   font-size: small;
   color: red;
@@ -47,8 +52,4 @@
   justify-content: center;
   gap: 1.5rem;
   font-size: larger;
-}
-
-.signin .signup {
-  text-align: center;
 }

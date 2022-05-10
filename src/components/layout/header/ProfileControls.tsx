@@ -41,15 +41,15 @@ const ProfileControls = () => {
         <FontAwesomeIcon
           className={`${styles.icon} ${isAnimated ? styles.press : ''}`}
           size="2x"
-          icon={faDoorClosed}
-          onClick={signoutHandler}
+          icon={faUser}
         />
       )}
       {authCtx.userId && (
         <FontAwesomeIcon
           className={`${styles.icon} ${isAnimated ? styles.press : ''}`}
           size="2x"
-          icon={faUser}
+          icon={faDoorClosed}
+          onClick={signoutHandler}
         />
       )}
     </>

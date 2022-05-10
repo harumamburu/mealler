@@ -35,8 +35,8 @@ const createResponseReducer =
     return oldState;
   };
 
-const useHttp = <Response>(
-  requestCallback: () => Promise<Response>,
+const useHttp = <Request extends unknown[], Response>(
+  requestCallback: (...args: Request) => Promise<Response>,
   isPending: boolean = false
 ) => {
   const [response, dispatchResponse] = useReducer(createResponseReducer<Response>(), {
@@ -45,15 +45,18 @@ const useHttp = <Response>(
     status: isPending ? Status.PENDING : undefined,
   });
 
-  const httpCallback = useCallback(async () => {
-    dispatchResponse({ type: HttpAction.SEND });
-    try {
-      const response = await requestCallback();
-      dispatchResponse({ type: HttpAction.COMPLETE, data: response });
-    } catch (err) {
-      dispatchResponse({ type: HttpAction.FAIL, error: (err as Error).message });
-    }
-  }, [requestCallback]);
+  const httpCallback = useCallback(
+    async (...args: Request) => {
+      dispatchResponse({ type: HttpAction.SEND });
+      try {
+        const response = await requestCallback(...args);
+        dispatchResponse({ type: HttpAction.COMPLETE, data: response });
+      } catch (err) {
+        dispatchResponse({ type: HttpAction.FAIL, error: (err as Error).message });
+      }
+    },
+    [requestCallback]
+  );
 
   return { httpCallback, ...response };
 };

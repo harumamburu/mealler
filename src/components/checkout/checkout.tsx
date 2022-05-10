@@ -9,13 +9,13 @@ import styles from './Checkout.module.css';
 
 const Checkout = () => {
   const modalCtx = useContext(ModalContext);
-  const [renderForm, isFormValid] = useForm(checkoutFormConfig);
+  const [renderInputs, isFormValid] = useForm(checkoutFormConfig);
 
   return (
     <Modal cardClassName={styles.checkout}>
       <form>
         <>
-          {renderForm()}
+          {renderInputs()}
           <div className={styles.controls}>
             <Button onClick={() => modalCtx.setModal('checkout', false)}>Cancel</Button>
             <Button main disabled={!isFormValid()}>
