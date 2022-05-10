@@ -10,15 +10,15 @@ import styles from './CartButton.module.css';
 const CartButton = () => {
   const modalCtx = useContext(ModalContext);
   const orderCtx = useContext(OrderContext);
-  const [isButtonAnimated, setisButtonAnimated] = useState(false);
+  const [isButtonAnimated, setIsButtonAnimated] = useState(false);
 
   useEffect(() => {
     if (orderCtx.positions.length === 0) {
       return;
     }
-    setisButtonAnimated(true);
+    setIsButtonAnimated(true);
 
-    const timer = setTimeout(() => setisButtonAnimated(false), 300);
+    const timer = setTimeout(() => setIsButtonAnimated(false), 300);
     return () => clearTimeout(timer);
   }, [orderCtx.positions]);
 

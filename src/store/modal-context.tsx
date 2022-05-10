@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const MODALS = { cart: false, checkout: false };
+const MODALS = { cart: false, checkout: false, signin: false, signup: false };
 
 type ModalContext = {
   modals: typeof MODALS;

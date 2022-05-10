@@ -1,0 +1,17 @@
+.icon:active,
+.icon:focus,
+.icon:hover {
+  color: #4d1601;
+  border-color: white;
+}
+
+.press {
+  animation: press 100ms ease-in-out -10ms;
+  animation-direction: alternate;
+}
+
+@keyframes press {
+  100% {
+    transform: translate(3px, 3px);
+  }
+}
