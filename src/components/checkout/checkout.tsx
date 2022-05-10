@@ -18,7 +18,7 @@ const Checkout = () => {
           {renderForm()}
           <div className={styles.controls}>
             <Button onClick={() => modalCtx.setModal('checkout', false)}>Cancel</Button>
-            <Button isMain disabled={!isFormValid()}>
+            <Button main disabled={!isFormValid()}>
               Confirm
             </Button>
           </div>

@@ -4,13 +4,13 @@ import styles from './Button.module.css';
 
 const Button: React.FC<{
   className?: string;
-  isMain?: boolean;
+  main?: boolean;
   disabled?: boolean;
   type?: 'submit' | 'reset' | 'button';
   onClick?: () => void;
   children: React.ReactNode;
 }> = (props) => {
-  const style = props.disabled ? styles.disabled : props.isMain ? styles.mainbutton : styles.button;
+  const style = props.disabled ? styles.disabled : props.main ? styles.mainbutton : styles.button;
 
   return (
     <button

@@ -15,7 +15,7 @@ const CartFooter = (props: { total: number; hasItems: boolean; closeModal: () =>
       </div>
       <div className={styles.controls}>
         <Button onClick={props.closeModal}>Close</Button>
-        <Button {...(props.hasItems ? { isMain: true } : { disabled: true })}>Order</Button>
+        <Button {...(props.hasItems ? { main: true } : { disabled: true })}>Order</Button>
       </div>
     </footer>
   );

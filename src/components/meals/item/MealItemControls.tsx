@@ -45,7 +45,7 @@ const MealItemControls = (props: {
     <form className={styles.controls} onSubmit={orderSubmitHandler}>
       <>
         {formRenderCallback()}
-        <Button type="submit" isMain>
+        <Button type="submit" main>
           + Add
         </Button>
       </>
