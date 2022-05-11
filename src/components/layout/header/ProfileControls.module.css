@@ -1,20 +1,15 @@
 .icon {
   color: inherit;
+  cursor: pointer;
 }
 
-.icon svg:active,
-.icon svg:focus,
-.icon svg:hover {
+.icon:active,
+.icon:focus,
+.icon:hover {
   color: #4d1601;
   border-color: white;
 }
 
 .press {
   transform: translate(3px, 3px);
-}
-
-@keyframes press {
-  100% {
-    transform: translate(3px, 3px);
-  }
 }
