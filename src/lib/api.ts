@@ -1,10 +1,9 @@
 import FireBaseAuthResponse from '../model/FireBaseAuthResponse';
 import Meal from '../model/Meal';
 
-const FIREBASE_DOMAIN =
-  'https://react-courses-e06a8-default-rtdb.europe-west1.firebasedatabase.app/mealler';
-const FB_API_KEY = '[API_KEY]';
-const FB_API_DOMAIN = 'https://identitytoolkit.googleapis.com/v1';
+const FIREBASE_DOMAIN = process.env.REACT_APP_FIREBASE_DOMAIN;
+const FB_API_KEY = process.env.REACT_APP_FB_API_KEY;
+const FB_API_DOMAIN = process.env.REACT_APP_FB_API_DOMAIN;
 
 export const fetchMeals = async () => {
   const response = await fetch(`${FIREBASE_DOMAIN}/meals.json`);
