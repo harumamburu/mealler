@@ -28,12 +28,13 @@ export const AuthContextProvider = (props: { children?: React.ReactNode }) => {
   const [tokenTtl, setTokenTtl] = useState<number | null>(null);
 
   const loginHandler = (userId: string, token: string, tokenTtl: number) => {
+    const ttl = tokenTtl * 1000;
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
-    localStorage.setItem('tokenExpiration', (new Date().getTime() + (tokenTtl || 0)).toString());
+    localStorage.setItem('tokenExpiration', (new Date().getTime() + ttl).toString());
     setUserId(userId);
     setToken(token);
-    setTokenTtl(tokenTtl * 1000);
+    setTokenTtl(ttl);
   };
   const logoutHandler = useCallback(() => {
     setUserId('');
