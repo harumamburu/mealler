@@ -1,0 +1,46 @@
+.signage p {
+  text-align: center;
+}
+
+.signage .input {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.signage .input label {
+  font-weight: bold;
+  font-size: x-large;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.signage .input input,
+.signage .input input:active,
+.signage .input input:focus {
+  border: none;
+  border-bottom: 2px solid darkgray;
+  outline: none;
+  font-size: larger;
+}
+
+.signage .invalid input {
+  border-bottom: none !important;
+  background-color: mistyrose;
+  box-shadow: 0 0 5px 1px darkred, 0 0 4px 2px red, 0 0 3px 3px salmon;
+  margin-bottom: 0.25rem;
+}
+
+.signage .input span,
+.signage .error {
+  font-style: italic;
+  font-size: small;
+  color: red;
+}
+
+.signage .controls {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: larger;
+}

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-import Button from '../ui/button/Button';
-import FireBaseAuthResponse from '../../model/FireBaseAuthResponse';
-import { logIn } from '../../lib/api';
+import Button from '../../ui/button/Button';
+import FireBaseAuthResponse from '../../../model/FireBaseAuthResponse';
+import { logIn } from '../../../lib/api';
 import signInFormConfig from './signin-form.config';
-import Spinner from '../ui/spinner/Spinner';
-import useForm from '../../hooks/use-form';
-import useHttp, { Status } from '../../hooks/use-http';
-import styles from './SignIn.module.css';
+import Spinner from '../../ui/spinner/Spinner';
+import useForm from '../../../hooks/use-form';
+import useHttp, { Status } from '../../../hooks/use-http';
+import styles from './SignageForm.module.css';
 
 const SignInForm = (props: {
   closeModal: () => void;
@@ -34,7 +34,7 @@ const SignInForm = (props: {
   }, [data, status, error]);
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={styles.signage} onSubmit={submitHandler}>
       <>{renderInputs()}</>
       {status !== Status.PENDING && (
         <div className={styles.controls}>
@@ -45,7 +45,7 @@ const SignInForm = (props: {
         </div>
       )}
       {status === Status.PENDING && <Spinner />}
-      {error && <p className={`${styles.error} ${styles.centered}`}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </form>
   );
 };

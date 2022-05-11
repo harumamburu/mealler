@@ -1,17 +1,19 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import AuthContext from '../../store/auth-context';
 import FireBaseAuthResponse from '../../model/FireBaseAuthResponse';
 import Modal from '../ui/modal/Modal';
 import ModalContext from '../../store/modal-context';
+import SignInForm from './form/SignInForm';
+import SignUpForm from './form/SignUpForm';
 import { Status } from '../../hooks/use-http';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
-import SignInForm from './SignInForm';
 
 const SignIn = () => {
   const modalCtx = useContext(ModalContext);
   const authCtx = useContext(AuthContext);
+  const [isSignIn, setIsSignIn] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,13 +36,24 @@ const SignIn = () => {
 
   return (
     <Modal cardClassName={styles.signin} onBackdropClick={() => modalCtx.setModal('signin', false)}>
-      <h1 className={`${styles.header} ${styles.centered}`}>Sign In</h1>
-      <SignInForm
-        logInAndNavigate={loginAndNavigate}
-        closeModal={() => modalCtx.setModal('signin', false)}
-      />
+      <h1 className={`${styles.header} ${styles.centered}`}>{isSignIn ? 'Sign In' : 'Sign Up'}</h1>
+      {isSignIn && (
+        <SignInForm
+          logInAndNavigate={loginAndNavigate}
+          closeModal={() => modalCtx.setModal('signin', false)}
+        />
+      )}
+      {!isSignIn && (
+        <SignUpForm
+          logInAndNavigate={loginAndNavigate}
+          closeModal={() => modalCtx.setModal('signin', false)}
+        />
+      )}
       <p className={styles.centered}>
-        New to the service? <a href="">Sign Up</a>
+        {isSignIn ? 'New to the service?' : 'Already have a profile?'}
+        <button className={styles.toggle} onClick={() => setIsSignIn((oldState) => !oldState)}>
+          {isSignIn ? 'Sign Up' : 'Sign In'}
+        </button>
       </p>
     </Modal>
   );

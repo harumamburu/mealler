@@ -3,8 +3,8 @@ import {
   FormConfig,
   matchesRegexpRule,
   minLengthRule,
-} from '../../lib/form-util';
-import styles from './SignIn.module.css';
+} from '../../../lib/form-util';
+import styles from './SignageForm.module.css';
 
 const signInFormConfig: FormConfig = {
   email: {
