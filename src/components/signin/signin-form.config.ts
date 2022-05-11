@@ -6,7 +6,7 @@ import {
 } from '../../lib/form-util';
 import styles from './SignIn.module.css';
 
-export const signInFormConfig: FormConfig = {
+const signInFormConfig: FormConfig = {
   email: {
     ...createFormFieldConfig(
       'email',
@@ -40,3 +40,5 @@ export const signInFormConfig: FormConfig = {
     validations: [minLengthRule('Password', 6)],
   },
 };
+
+export default signInFormConfig;
