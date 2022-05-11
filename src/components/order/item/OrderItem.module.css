@@ -8,6 +8,10 @@
   font-weight: bold;
 }
 
+.orderitem:first-child {
+  margin-top: 0;
+}
+
 .orderitem .description {
   flex-basis: 30%;
 }

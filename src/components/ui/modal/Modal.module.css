@@ -4,7 +4,6 @@
   left: 0;
   height: 100vh;
   width: 100%;
-  z-index: 20;
   background-color: rgba(0, 0, 0, 0.66);
 }
 
@@ -13,7 +12,6 @@
   top: 20vh;
   left: 5%;
   width: 90%;
-  z-index: 30;
   overflow: hidden;
   animation: slide-down 300ms ease-out forwards;
 }

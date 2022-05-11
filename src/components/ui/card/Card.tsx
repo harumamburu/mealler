@@ -2,9 +2,13 @@ import React from 'react';
 
 import styles from './Card.module.css';
 
-const Card: React.FC<{ className?: string; children: React.ReactNode }> = (props) => {
+const Card: React.FC<{
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}> = (props) => {
   return (
-    <div className={`${styles.card} ${props.className ? props.className : ''}`}>
+    <div className={`${styles.card} ${props.className || ''}`} style={props.style}>
       {props.children}
     </div>
   );
