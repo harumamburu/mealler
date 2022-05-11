@@ -1,9 +1,9 @@
 import OrderedMeal from '../../../model/OrderedMeal';
 
 import Button from '../../ui/button/Button';
-import styles from './CartItemControls.module.css';
+import styles from './OrderItemControls.module.css';
 
-const CartItemControls = (props: {
+const OrderItemControls = (props: {
   orderedMeal: OrderedMeal;
   onAdd: (amount: number) => void;
   onRemove: (amount: number) => void;
@@ -20,4 +20,4 @@ const CartItemControls = (props: {
   );
 };
 
-export default CartItemControls;
+export default OrderItemControls;

@@ -1,4 +1,4 @@
-.cartitem {
+.orderitem {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,14 +8,18 @@
   font-weight: bold;
 }
 
-.cartitem .description {
+.orderitem .description {
   flex-basis: 25%;
 }
 
-.cartitem .amount {
+.orderitem .amount {
   border: 1px solid lightgray;
   padding: 0.25rem 0.75rem;
   border-radius: 6px;
   align-self: flex-end;
   margin: 0.5rem 0;
+}
+
+.orderitem .amount span::before {
+  content: 'x';
 }

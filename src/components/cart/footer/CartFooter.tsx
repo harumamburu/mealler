@@ -1,7 +1,12 @@
 import Button from '../../ui/button/Button';
 import styles from './CartFooter.module.css';
 
-const CartFooter = (props: { total: number; hasItems: boolean; closeModal: () => void }) => {
+const CartFooter = (props: {
+  total: number;
+  hasItems: boolean;
+  closeModal: () => void;
+  makeOrder: () => void;
+}) => {
   return (
     <footer>
       <div className={styles.total}>
@@ -15,7 +20,12 @@ const CartFooter = (props: { total: number; hasItems: boolean; closeModal: () =>
       </div>
       <div className={styles.controls}>
         <Button onClick={props.closeModal}>Close</Button>
-        <Button {...(props.hasItems ? { main: true } : { disabled: true })}>Order</Button>
+        <Button
+          {...(props.hasItems ? { main: true } : { disabled: true })}
+          onClick={props.makeOrder}
+        >
+          Order
+        </Button>
       </div>
     </footer>
   );
