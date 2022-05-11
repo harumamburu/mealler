@@ -4,8 +4,8 @@ import {
   FormConfig,
   matchesRegexpRule,
   requiredRule,
-} from '../../lib/form-util';
-import styles from './Checkout.module.css';
+} from '../../../lib/form-util';
+import styles from './CheckoutForm.module.css';
 
 const checkoutFormConfig: FormConfig = {
   name: {
@@ -102,18 +102,6 @@ const checkoutFormConfig: FormConfig = {
       {
         type: 'text',
         maxLength: 5,
-      }
-    ),
-    validations: [],
-  },
-  save: {
-    ...createFormFieldConfig(
-      'save',
-      () => `${styles.checkbox} ${styles.input}`,
-      'Remember Address',
-      'checkout-save',
-      {
-        type: 'checkbox',
       }
     ),
     validations: [],

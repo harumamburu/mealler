@@ -1,0 +1,52 @@
+.checkoutform .input {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+}
+
+.checkoutform .checkbox {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem 0;
+}
+
+.checkoutform .input label {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 0.25rem;
+}
+
+.checkoutform .required label::after {
+  content: '*';
+  font-size: small;
+  position: relative;
+  bottom: 4px;
+}
+
+.checkoutform .input input,
+.checkoutform .input input:active,
+.checkoutform .input input:focus {
+  border: 1px solid darkgray;
+  border-radius: 0;
+  outline: none;
+}
+
+.invalid input {
+  background-color: mistyrose;
+  border: 1px solid maroon !important;
+  box-shadow: 0 0 5px 1px darkred, 0 0 4px 2px red, 0 0 3px 3px salmon;
+  margin-bottom: 0.25rem;
+}
+
+.checkoutform .input span {
+  font-style: italic;
+  font-size: small;
+  color: red;
+}
+
+.checkoutform .controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

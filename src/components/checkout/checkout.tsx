@@ -1,29 +1,33 @@
 import { useContext } from 'react';
 
-import Button from '../ui/button/Button';
-import checkoutFormConfig from './checkout-form.config';
+import AuthContext from '../../store/auth-context';
+import CheckoutForm from './form/CheckoutForm';
 import Modal from '../ui/modal/Modal';
 import ModalContext from '../../store/modal-context';
-import useForm from '../../hooks/use-form';
+import Order from '../order/Order';
 import styles from './Checkout.module.css';
 
 const Checkout = () => {
   const modalCtx = useContext(ModalContext);
-  const [renderInputs, isFormValid] = useForm(checkoutFormConfig);
+  const authCtx = useContext(AuthContext);
 
   return (
     <Modal cardClassName={styles.checkout}>
-      <form>
+      {!authCtx.userId && (
         <>
-          {renderInputs()}
-          <div className={styles.controls}>
-            <Button onClick={() => modalCtx.setModal('checkout', false)}>Cancel</Button>
-            <Button main disabled={!isFormValid()}>
-              Confirm
-            </Button>
-          </div>
+          <p>
+            {'Have a profile?'}
+            <button className={styles.signin} onClick={() => modalCtx.setModal('signin', true)}>
+              Sign In
+            </button>
+            {'to look up your known addresses'}
+          </p>
+          <hr />
         </>
-      </form>
+      )}
+      <Order className={styles.order} />
+      <hr />
+      <CheckoutForm userId={authCtx.userId} onCancel={() => modalCtx.setModal('checkout', false)} />
     </Modal>
   );
 };
