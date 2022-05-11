@@ -5,6 +5,7 @@ import styles from './OrderItem.module.css';
 
 const OrderItem = (props: {
   orderedItem: OrderedMeal;
+  editable?: boolean;
   onAdd: (amount: number) => void;
   onRemove: (amount: number) => void;
 }) => {
@@ -14,11 +15,13 @@ const OrderItem = (props: {
       <div className={styles.amount}>
         <span>{props.orderedItem.amount}</span>
       </div>
-      <OrderItemControls
-        orderedMeal={props.orderedItem}
-        onAdd={props.onAdd}
-        onRemove={props.onRemove}
-      />
+      {props.editable && (
+        <OrderItemControls
+          orderedMeal={props.orderedItem}
+          onAdd={props.onAdd}
+          onRemove={props.onRemove}
+        />
+      )}
     </li>
   );
 };

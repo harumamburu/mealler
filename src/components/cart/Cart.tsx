@@ -17,7 +17,7 @@ const Cart = () => {
 
   return (
     <Modal onBackdropClick={() => modalCtx.setModal('cart', false)}>
-      <Order />
+      <Order editable />
       <CartFooter
         total={orderCtx.totalPrice}
         hasItems={orderCtx.positions.length > 0}
