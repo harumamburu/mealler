@@ -10,8 +10,7 @@
 }
 
 .press {
-  animation: press 100ms ease-in-out -10ms;
-  animation-direction: alternate;
+  transform: translate(3px, 3px);
 }
 
 @keyframes press {

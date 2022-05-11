@@ -10,12 +10,15 @@ import useForm from '../../hooks/use-form';
 import useHttp, { Status } from '../../hooks/use-http';
 import styles from './SignIn.module.css';
 import Spinner from '../ui/spinner/Spinner';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const modalCtx = useContext(ModalContext);
   const authCtx = useContext(AuthContext);
   const [renderInputs, isFormValid, getFormValues] = useForm(signInFormConfig);
   const { data, error, status, httpCallback } = useHttp(logIn);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
@@ -30,6 +33,9 @@ const SignIn = () => {
     if (status === Status.COMPLETED && data && !error) {
       authCtx.login(data.localId, data.idToken, +data.expiresIn);
       modalCtx.setModal('signin', false);
+      if (location.pathname !== '/' && !location.pathname.includes('menu')) {
+        navigate('/', { replace: true });
+      }
     }
   }, [data, status, error]);
 
