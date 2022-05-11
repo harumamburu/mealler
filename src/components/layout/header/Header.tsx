@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import CartButton from './CartButton';
 import background from '../../assets/meals.jpeg';
 import styles from './Header.module.css';
@@ -7,7 +9,9 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <h1>Mealler</h1>
+        <Link to="/">
+          <h1>Mealler</h1>
+        </Link>
         <div className={styles.controls}>
           <CartButton />
           <ProfileControls />
