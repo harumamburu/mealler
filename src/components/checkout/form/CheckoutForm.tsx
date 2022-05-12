@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Address from '../../../model/Address';
+import AddressContext from '../../../store/addresses-context';
 import Button from '../../ui/button/Button';
 import checkoutFormConfig from './checkout-form.config';
-import { saveAddress } from '../../../lib/api';
 import Input from '../../ui/input/Input';
 import useForm from '../../../hooks/use-form';
-import useHttp from '../../../hooks/use-http';
 import styles from './CheckoutForm.module.css';
 
 const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
   const [renderInputs, isFormValid, getFormValues, resetForm] = useForm(checkoutFormConfig);
   const [isSavingAddress, setIsSavingAddress] = useState(false);
-  const { error, httpCallback } = useHttp(saveAddress);
+  const addressCtx = useContext(AddressContext);
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const form = getFormValues() as Address;
     if (isSavingAddress) {
-      httpCallback(props.userId, form);
+      addressCtx.saveAddress(form);
     }
     resetForm();
   };
@@ -36,8 +35,6 @@ const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
             value="save"
             config={{ type: 'checkbox' }}
             onChange={(event) => setIsSavingAddress(event.target.checked)}
-            isValid={!error}
-            errorMessages={error ? [error] : []}
           />
         )}
         <div className={styles.controls}>
