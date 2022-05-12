@@ -1,3 +1,4 @@
+import Address from '../model/Address';
 import FireBaseAuthResponse from '../model/FireBaseAuthResponse';
 import Meal from '../model/Meal';
 
@@ -5,18 +6,49 @@ const FIREBASE_DOMAIN = process.env.REACT_APP_FIREBASE_DOMAIN;
 const FB_API_KEY = process.env.REACT_APP_FB_API_KEY;
 const FB_API_DOMAIN = process.env.REACT_APP_FB_API_DOMAIN;
 
+type FirebasePostResponse = {
+  name: string;
+};
+
 export const fetchMeals = async () => {
-  const response = await fetch(`${FIREBASE_DOMAIN}/meals.json`);
+  return firebaseDbGet<Meal>('meals');
+};
+
+export const fetchAddresses = async (userId: string) => {
+  return firebaseDbGet<Address>(`addresses/${userId}`);
+};
+
+export const saveAddress = async (userId: string, address: Address) => {
+  return { addressId: (await firebaseDbPost(`addresses/${userId}`, address)).name };
+};
+
+const firebaseDbGet = async <T>(document: string) => {
+  const response = await fetch(`${FIREBASE_DOMAIN}/${document}.json`);
   if (!response.ok) {
     throw new Error(`${response.status}: ${response.statusText}`);
   }
 
-  const data = (await response.json()) as { [key: string]: Meal };
+  const data = (await response.json()) as { [key: string]: T };
   if (!data) {
     throw new Error('Data is null');
   }
 
-  return Object.entries(data).map(([key, value]) => ({ ...value, id: key } as Meal));
+  return Object.entries(data).map(([key, value]) => ({ ...value, id: key } as T));
+};
+
+const firebaseDbPost = async (document: string, entity: {}) => {
+  const response = await fetch(`${FIREBASE_DOMAIN}/${document}.json`, {
+    method: 'POST',
+    body: JSON.stringify(entity),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || `Could not create: ${response.status}`);
+  }
+
+  return data as FirebasePostResponse;
 };
 
 export const logIn = async (email: string, password: string) => {
