@@ -20,27 +20,29 @@ export const AddressContextProvider = (props: { userId: string; children?: React
   const { userId } = props;
   useEffect(() => {
     if (userId) {
-      fetchAddresses(userId).then((addresses) =>
-        setAddresses(
-          // this is to filter out ids
-          addresses.map(({ name, phone, email, street, house, appartment }) => ({
-            name,
-            phone,
-            email,
-            street,
-            house,
-            appartment,
-          }))
-        )
-      );
+      fetchAddresses(userId).then((addresses) => setAddresses(addresses));
     } else {
       setAddresses([]);
     }
   }, [userId]);
 
   const saveAddress = (address: Address) => {
-    if (addresses.filter((adr) => deepEqual(adr, address)).length === 0) {
-      saveAdr(userId, address).then(() => setAddresses([...addresses, address]));
+    if (
+      addresses
+        // this is to filter out ids
+        .map(({ name, phone, email, street, house, appartment }) => ({
+          name,
+          phone,
+          email,
+          street,
+          house,
+          appartment,
+        }))
+        .filter((adr) => deepEqual(adr, address)).length === 0
+    ) {
+      saveAdr(userId, address).then(({ addressId }) =>
+        setAddresses([...addresses, { id: addressId, ...address }])
+      );
     }
   };
 

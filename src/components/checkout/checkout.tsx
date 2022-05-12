@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { AddressContextProvider } from '../../store/addresses-context';
 import AuthContext from '../../store/auth-context';
+import CheckoutAddresses from './CheckoutAddresses';
 import CheckoutForm from './form/CheckoutForm';
 import Modal from '../ui/modal/Modal';
 import ModalContext from '../../store/modal-context';
@@ -15,18 +16,11 @@ const Checkout = () => {
   return (
     <Modal cardClassName={styles.checkout}>
       <AddressContextProvider userId={authCtx.userId}>
-        {!authCtx.userId && (
-          <>
-            <p>
-              {'Have a profile?'}
-              <button className={styles.signin} onClick={() => modalCtx.setModal('signin', true)}>
-                Sign In
-              </button>
-              {'to look up your known addresses'}
-            </p>
-            <hr />
-          </>
-        )}
+        <CheckoutAddresses
+          userId={authCtx.userId}
+          onSignIn={() => modalCtx.setModal('signin', true)}
+        />
+        <hr />
         <Order className={styles.order} />
         <hr />
         <CheckoutForm

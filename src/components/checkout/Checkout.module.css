@@ -4,13 +4,8 @@
   left: calc(50% - 15rem);
 }
 
-.checkout .signin {
-  border: none;
-  background: transparent;
-  font: inherit;
-  color: #4d1601;
-  text-decoration: underline;
-  cursor: pointer;
+.checkout hr {
+  border: 1px solid darkgray;
 }
 
 .checkout .order {
