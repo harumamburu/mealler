@@ -6,16 +6,21 @@ import { fetchAddresses, saveAddress as saveAdr } from '../lib/api';
 
 type AddressesContext = {
   addresses: Address[];
+  currentAddress: Address;
   saveAddress: (address: Address) => void;
+  setCurrentAddress: (addressId: string) => void;
 };
 
 const AddressContext = React.createContext<AddressesContext>({
   addresses: [],
+  currentAddress: {} as Address,
   saveAddress: () => {},
+  setCurrentAddress: () => {},
 });
 
 export const AddressContextProvider = (props: { userId: string; children?: ReactNode }) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
+  const [currentAddress, setAddress] = useState<Address>({} as Address);
 
   const { userId } = props;
   useEffect(() => {
@@ -23,6 +28,7 @@ export const AddressContextProvider = (props: { userId: string; children?: React
       fetchAddresses(userId).then((addresses) => setAddresses(addresses));
     } else {
       setAddresses([]);
+      setAddress({} as Address);
     }
   }, [userId]);
 
@@ -45,9 +51,12 @@ export const AddressContextProvider = (props: { userId: string; children?: React
       );
     }
   };
+  const setCurrentAddress = (addressId: string) => {
+    setAddress(addresses.find((address) => address.id === addressId) || ({} as Address));
+  };
 
   return (
-    <AddressContext.Provider value={{ addresses, saveAddress }}>
+    <AddressContext.Provider value={{ addresses, currentAddress, saveAddress, setCurrentAddress }}>
       {props.children}
     </AddressContext.Provider>
   );

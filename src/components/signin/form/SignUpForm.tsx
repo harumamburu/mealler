@@ -17,7 +17,7 @@ const SignUpForm = (props: {
     error: string | undefined
   ) => void;
 }) => {
-  const [renderInputs, isFormValid, getFormValues] = useForm(signUpFormConfig);
+  const { renderInputs, isFormValid, getFormValues } = useForm(signUpFormConfig);
   const { data, error, status, httpCallback } = useHttp(signUp);
   const [errorMessage, setErrorMessage] = useState('');
 

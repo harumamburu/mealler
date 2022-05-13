@@ -63,7 +63,7 @@ const useForm = (formConfig: FormConfig) => {
     return formValues;
   };
 
-  return [renderInputs, isFormValid, getFormValues, resetForm];
+  return { renderInputs, isFormValid, getFormValues, resetForm, setForm };
 };
 
 export default useForm;

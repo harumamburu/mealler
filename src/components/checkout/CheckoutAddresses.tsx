@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import AddressContext from '../../store/addresses-context';
 import styles from './CheckoutAddresses.module.css';
@@ -20,8 +20,12 @@ const CheckoutAddresses = (props: { userId: string; onSignIn: () => void }) => {
       {props.userId && (
         <div className={styles.address}>
           <label htmlFor="checkout-addresses">Known Addresses</label>
-          <select id="checkout-addresses">
-            <option key="default" selected disabled>
+          <select
+            id="checkout-addresses"
+            defaultValue="placeholder"
+            onChange={(event) => addressCtx.setCurrentAddress(event.currentTarget.value)}
+          >
+            <option key="placeholder" value="placeholder" disabled>
               ...
             </option>
             {addressCtx.addresses.map((address) => (

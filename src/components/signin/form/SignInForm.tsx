@@ -17,7 +17,7 @@ const SignInForm = (props: {
     error: string | undefined
   ) => void;
 }) => {
-  const [renderInputs, isFormValid, getFormValues] = useForm(signInFormConfig);
+  const { renderInputs, isFormValid, getFormValues } = useForm(signInFormConfig);
   const { data, error, status, httpCallback } = useHttp(logIn);
 
   const submitHandler = (event: React.FormEvent) => {

@@ -31,12 +31,12 @@ const MealItemControls = (props: {
       ],
     },
   };
-  const [formRenderCallback, formValidityCallback, resetFormCallback] = useForm(formConfig);
+  const { renderInputs, isFormValid, resetForm } = useForm(formConfig);
 
   const orderSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    if (formValidityCallback()) {
-      const value = resetFormCallback() as { [key: string]: string };
+    if (isFormValid()) {
+      const value = resetForm() as { [key: string]: string };
       props.onOrder(+value['amount']);
     }
   };
@@ -44,7 +44,7 @@ const MealItemControls = (props: {
   return (
     <form className={styles.controls} onSubmit={orderSubmitHandler}>
       <>
-        {formRenderCallback()}
+        {renderInputs()}
         <Button type="submit" main>
           + Add
         </Button>

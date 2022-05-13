@@ -7,11 +7,26 @@ import checkoutFormConfig from './checkout-form.config';
 import Input from '../../ui/input/Input';
 import useForm from '../../../hooks/use-form';
 import styles from './CheckoutForm.module.css';
+import { useEffect } from 'react';
 
 const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
-  const [renderInputs, isFormValid, getFormValues, resetForm] = useForm(checkoutFormConfig);
+  const { renderInputs, isFormValid, getFormValues, resetForm, setForm } =
+    useForm(checkoutFormConfig);
   const [isSavingAddress, setIsSavingAddress] = useState(false);
   const addressCtx = useContext(AddressContext);
+
+  const { currentAddress } = addressCtx;
+  useEffect(() => {
+    if (currentAddress) {
+      const formConfig = { ...checkoutFormConfig };
+      Object.entries(currentAddress).forEach(([key, value]) => {
+        if (formConfig[key]) {
+          formConfig[key].value = value;
+        }
+      });
+      setForm(formConfig);
+    }
+  }, [currentAddress]);
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
