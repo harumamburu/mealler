@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import AuthContext from './store/auth-context';
 import Cart from './components/cart/Cart';
 import Checkout from './components/checkout/Checkout';
+import CheckoutConfirmation from './components/checkout/CheckoutConfirmation';
 import Header from './components/layout/header/Header';
 import MenuPage from './components/pages/MenuPage';
 import ModalContext from './store/modal-context';
@@ -37,6 +38,7 @@ const App = () => {
       {modalCtx.modals.cart && <Cart />}
       {modalCtx.modals.checkout && <Checkout />}
       {modalCtx.modals.signin && <SignIn />}
+      {modalCtx.modals.orderDone && <CheckoutConfirmation />}
     </OrderContextProvider>
   );
 };

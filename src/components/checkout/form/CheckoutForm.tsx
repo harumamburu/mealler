@@ -5,6 +5,7 @@ import AddressContext from '../../../store/addresses-context';
 import Button from '../../ui/button/Button';
 import checkoutFormConfig from './checkout-form.config';
 import Input from '../../ui/input/Input';
+import ModalContext from '../../../store/modal-context';
 import OrderContext from '../../../store/order-context';
 import Spinner from '../../ui/spinner/Spinner';
 import { submitOrder } from '../../../lib/api';
@@ -13,12 +14,14 @@ import useForm from '../../../hooks/use-form';
 import useHttp, { Status } from '../../../hooks/use-http';
 import styles from './CheckoutForm.module.css';
 
-const CheckoutForm = (props: { userId: string; closeForm: () => void }) => {
-  const { renderInputs, isFormValid, getFormValues, setForm } = useForm(checkoutFormConfig);
+const CheckoutForm = (props: { userId: string }) => {
   const [isSavingAddress, setIsSavingAddress] = useState(false);
+  const { renderInputs, isFormValid, getFormValues, setForm } = useForm(checkoutFormConfig);
+  const { httpCallback, error, status } = useHttp(submitOrder);
+
   const addressCtx = useContext(AddressContext);
   const orderCtx = useContext(OrderContext);
-  const { httpCallback, error, status } = useHttp(submitOrder);
+  const modalCtx = useContext(ModalContext);
 
   const { currentAddress } = addressCtx;
   useEffect(() => {
@@ -40,8 +43,9 @@ const CheckoutForm = (props: { userId: string; closeForm: () => void }) => {
 
   const cleanUp = () => {
     orderCtx.clearOrder();
-    props.closeForm();
     addressCtx.setCurrentAddress('');
+    modalCtx.setModal('checkout', false);
+    modalCtx.setModal('orderDone', true);
   };
 
   const submitHandler = (event: React.FormEvent) => {
@@ -84,7 +88,7 @@ const CheckoutForm = (props: { userId: string; closeForm: () => void }) => {
         >
           {status !== Status.PENDING && (
             <>
-              <Button onClick={props.closeForm}>Cancel</Button>
+              <Button onClick={() => modalCtx.setModal('checkout', false)}>Cancel</Button>
               <Button type="submit" main disabled={!isFormValid()}>
                 Confirm
               </Button>

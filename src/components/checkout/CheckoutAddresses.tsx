@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import AddressContext from '../../store/addresses-context';
+import ModalContext from '../../store/modal-context';
 import styles from './CheckoutAddresses.module.css';
 
-const CheckoutAddresses = (props: { userId: string; onSignIn: () => void }) => {
+const CheckoutAddresses = (props: { userId: string }) => {
   const addressCtx = useContext(AddressContext);
+  const modalCtx = useContext(ModalContext);
 
   return (
     <>
       {!props.userId && (
         <p>
           {'Have a profile?'}
-          <button className={styles.checkoutsignin} onClick={props.onSignIn}>
+          <button
+            className={styles.checkoutsignin}
+            onClick={() => modalCtx.setModal('signin', true)}
+          >
             Sign In
           </button>
           {'to look up your known addresses'}

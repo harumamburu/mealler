@@ -1,0 +1,15 @@
+.confirmation {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 20rem;
+  left: calc(50% - 10rem);
+}
+
+.confirmation h2 {
+  margin: 0;
+}
+
+.confirmation p {
+  margin-block: 1.5rem;
+}
