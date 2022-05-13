@@ -1,6 +1,27 @@
 import { useCallback, useState } from 'react';
 
-import { FormConfig, getChangeEventValue } from '../lib/form-util';
+import { FormConfig, FormFieldConfig, getChangeEventValue } from '../lib/form-util';
+
+const updateInput = (input: FormFieldConfig, value: string) => {
+  input.value = value;
+  input.isTouched = true;
+
+  input.errorMessages = [];
+  const isValid = input.validations.reduce((result, validation) => {
+    const isValid = validation.validate(input.value);
+    if (!isValid) {
+      input.errorMessages.push(validation.message);
+    }
+    return result && isValid;
+  }, true);
+  if (isValid && !input.isValid) {
+    input.isValid = true;
+  } else if (!isValid && input.isValid) {
+    input.isValid = false;
+  }
+
+  return input;
+};
 
 const useForm = (formConfig: FormConfig) => {
   const [form, setForm] = useState(formConfig);
@@ -14,25 +35,22 @@ const useForm = (formConfig: FormConfig) => {
   const onInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { name } = event.target;
-      const input = { ...form[name] };
-      input.value = getChangeEventValue(event);
-      input.errorMessages = [];
+      const input = updateInput({ ...form[name] }, getChangeEventValue(event));
+      setForm((oldForm) => {
+        return { ...oldForm, [name]: input };
+      });
+    },
+    [form]
+  );
 
-      const isValid = input.validations.reduce((result, validation) => {
-        const isValid = validation.validate(input.value);
-        if (!isValid) {
-          input.errorMessages.push(validation.message);
-        }
-        return result && isValid;
-      }, true);
-      if (isValid && !input.isValid) {
-        input.isValid = true;
-      } else if (!isValid && input.isValid) {
-        input.isValid = false;
-      }
-
-      input.isTouched = true;
-      setForm({ ...form, [name]: input });
+  const updateFormValues = useCallback(
+    (values: { [name: string]: string }) => {
+      const newForm = { ...form };
+      Object.entries(values)
+        .filter(([key]) => Object.keys(newForm).includes(key))
+        .map(([key, value]) => updateInput(newForm[key], value))
+        .forEach((input) => (newForm[input.name] = input));
+      setForm(newForm);
     },
     [form]
   );
@@ -49,13 +67,15 @@ const useForm = (formConfig: FormConfig) => {
     [form]
   );
 
-  const getFormValues = () => {
-    return Object.entries(form).reduce((values, [key, input]) => {
-      return { ...values, [key]: input.value };
-    }, {});
-  };
+  const getFormValues = useCallback(
+    () =>
+      Object.entries(form).reduce((values, [key, input]) => {
+        return { ...values, [key]: input.value };
+      }, {}),
+    [form]
+  );
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     const formValues = getFormValues();
 
     const newForm = { ...form };
@@ -68,9 +88,9 @@ const useForm = (formConfig: FormConfig) => {
     setForm(newForm);
 
     return formValues;
-  };
+  }, [form]);
 
-  return { renderInputs, isFormValid, getFormValues, resetForm, setForm };
+  return { renderInputs, isFormValid, getFormValues, resetForm, updateFormValues };
 };
 
 export default useForm;

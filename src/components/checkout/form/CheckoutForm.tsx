@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import Address from '../../../model/Address';
 import AddressContext from '../../../store/addresses-context';
@@ -16,37 +16,35 @@ import styles from './CheckoutForm.module.css';
 
 const CheckoutForm = (props: { userId: string }) => {
   const [isSavingAddress, setIsSavingAddress] = useState(false);
-  const { renderInputs, isFormValid, getFormValues, setForm } = useForm(checkoutFormConfig);
+  const { renderInputs, isFormValid, getFormValues, updateFormValues, resetForm } =
+    useForm(checkoutFormConfig);
   const { httpCallback, error, status } = useHttp(submitOrder);
 
   const addressCtx = useContext(AddressContext);
   const orderCtx = useContext(OrderContext);
   const modalCtx = useContext(ModalContext);
+  const cleanUp = useCallback(() => {
+    orderCtx.clearOrder();
+    addressCtx.setCurrentAddress('');
+    resetForm();
+    modalCtx.setModal('checkout', false);
+    modalCtx.setModal('orderDone', true);
+  }, [resetForm]);
 
   const { currentAddress } = addressCtx;
   useEffect(() => {
-    if (currentAddress) {
-      const formConfig = { ...checkoutFormConfig };
-      Object.entries(currentAddress).forEach(([key, value]) => {
-        if (formConfig[key]) {
-          formConfig[key].value = value;
-        }
-      });
-      setForm(formConfig);
+    if (!!currentAddress) {
+      const { name, phone, email = '', street, house, appartment = '' } = currentAddress;
+      updateFormValues({ name, phone, email, street, house, appartment });
+    } else {
+      resetForm();
     }
   }, [currentAddress]);
   useEffect(() => {
     if (status === Status.COMPLETED && !error) {
       cleanUp();
     }
-  }, [status, error]);
-
-  const cleanUp = () => {
-    orderCtx.clearOrder();
-    addressCtx.setCurrentAddress('');
-    modalCtx.setModal('checkout', false);
-    modalCtx.setModal('orderDone', true);
-  };
+  }, [status, error, cleanUp]);
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
