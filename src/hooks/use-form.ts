@@ -38,7 +38,14 @@ const useForm = (formConfig: FormConfig) => {
   );
 
   const isFormValid = useCallback(
-    () => Object.values(form).reduce((validity, formInput) => formInput.isValid && validity, true),
+    () =>
+      Object.values(form).reduce(
+        (validity, formInput) =>
+          (!formInput.validations.find((valiadtion) => valiadtion.name === 'required') ||
+            formInput.isValid) &&
+          validity,
+        true
+      ),
     [form]
   );
 
