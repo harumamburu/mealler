@@ -1,0 +1,30 @@
+.navigation ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.navigation .active {
+  text-decoration: underline;
+}
+
+.navigation a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: large;
+  margin-left: calc(1rem + 1px);
+}
+
+.navigation li:first-child a {
+  margin-left: 0;
+}
+
+.navigation li::after {
+  content: '|';
+  padding-left: 1rem;
+}
+
+.navigation li:last-child::after {
+  display: none;
+}
