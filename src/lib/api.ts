@@ -30,6 +30,10 @@ export const saveAddress = async (userId: string, address: Address) => {
   return { addressId: (await firebaseDbPost(`addresses/${userId}`, address)).name };
 };
 
+export const fetchOrders = async (userId: string) => {
+  return firebaseDbGet<SubmittedOrder>(`orders/${userId}`);
+};
+
 export const submitOrder = async (userId: string, order: SubmittedOrder) => {
   return { orderId: (await firebaseDbPost(`orders/${userId}`, order)).name };
 };

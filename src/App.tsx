@@ -32,6 +32,7 @@ const App = () => {
             path="/profile"
             element={authCtx.userId ? <ProfilePage /> : <Navigate replace to="/401" />}
           >
+            <Route path="" element={<Navigate replace to="orders" />} />
             <Route path="orders" element={<OrdersHistory />} />
             <Route path="addresses" element={<KnownAddresses />} />
           </Route>
