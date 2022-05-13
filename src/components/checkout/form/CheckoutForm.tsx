@@ -1,19 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Address from '../../../model/Address';
 import AddressContext from '../../../store/addresses-context';
 import Button from '../../ui/button/Button';
 import checkoutFormConfig from './checkout-form.config';
 import Input from '../../ui/input/Input';
+import OrderContext from '../../../store/order-context';
+import Spinner from '../../ui/spinner/Spinner';
+import { submitOrder } from '../../../lib/api';
+import SubmittedOrder from '../../../model/SubmittedOrder';
 import useForm from '../../../hooks/use-form';
+import useHttp, { Status } from '../../../hooks/use-http';
 import styles from './CheckoutForm.module.css';
-import { useEffect } from 'react';
 
-const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
-  const { renderInputs, isFormValid, getFormValues, resetForm, setForm } =
-    useForm(checkoutFormConfig);
+const CheckoutForm = (props: { userId: string; closeForm: () => void }) => {
+  const { renderInputs, isFormValid, getFormValues, setForm } = useForm(checkoutFormConfig);
   const [isSavingAddress, setIsSavingAddress] = useState(false);
   const addressCtx = useContext(AddressContext);
+  const orderCtx = useContext(OrderContext);
+  const { httpCallback, error, status } = useHttp(submitOrder);
 
   const { currentAddress } = addressCtx;
   useEffect(() => {
@@ -27,14 +32,35 @@ const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
       setForm(formConfig);
     }
   }, [currentAddress]);
+  useEffect(() => {
+    if (status === Status.COMPLETED && !error) {
+      cleanUp();
+    }
+  }, [status, error]);
+
+  const cleanUp = () => {
+    orderCtx.clearOrder();
+    props.closeForm();
+    addressCtx.setCurrentAddress('');
+  };
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    const form = getFormValues() as Address;
-    if (isSavingAddress) {
-      addressCtx.saveAddress(form);
+    if (props.userId) {
+      const form = getFormValues() as Address;
+      if (isSavingAddress) {
+        addressCtx.saveAddress(form);
+      }
+
+      const order = {
+        date: new Date().toDateString(),
+        positions: orderCtx.positions,
+        address: form,
+      } as SubmittedOrder;
+      httpCallback(props.userId, order);
+    } else {
+      cleanUp();
     }
-    resetForm();
   };
 
   return (
@@ -52,11 +78,20 @@ const CheckoutForm = (props: { userId: string; onCancel: () => void }) => {
             onChange={(event) => setIsSavingAddress(event.target.checked)}
           />
         )}
-        <div className={styles.controls}>
-          <Button onClick={props.onCancel}>Cancel</Button>
-          <Button type="submit" main disabled={!isFormValid()}>
-            Confirm
-          </Button>
+        <div
+          className={styles.controls}
+          style={status === Status.PENDING ? { justifyContent: 'center' } : {}}
+        >
+          {status !== Status.PENDING && (
+            <>
+              <Button onClick={props.closeForm}>Cancel</Button>
+              <Button type="submit" main disabled={!isFormValid()}>
+                Confirm
+              </Button>
+            </>
+          )}
+          {status === Status.PENDING && <Spinner />}
+          {error && <p className={styles.error}>{error}</p>}
         </div>
       </>
     </form>

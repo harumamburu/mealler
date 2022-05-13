@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
 import Button from '../../ui/button/Button';
-import FireBaseAuthResponse from '../../../model/FireBaseAuthResponse';
-import { logIn } from '../../../lib/api';
+import { FireBaseAuthResponse, logIn } from '../../../lib/api';
 import signInFormConfig from './signin-form.config';
 import Spinner from '../../ui/spinner/Spinner';
 import useForm from '../../../hooks/use-form';

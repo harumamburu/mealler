@@ -1,6 +1,6 @@
 import Address from '../model/Address';
-import FireBaseAuthResponse from '../model/FireBaseAuthResponse';
 import Meal from '../model/Meal';
+import SubmittedOrder from '../model/SubmittedOrder';
 
 const FIREBASE_DOMAIN = process.env.REACT_APP_FIREBASE_DOMAIN;
 const FB_API_KEY = process.env.REACT_APP_FB_API_KEY;
@@ -8,6 +8,14 @@ const FB_API_DOMAIN = process.env.REACT_APP_FB_API_DOMAIN;
 
 type FirebasePostResponse = {
   name: string;
+};
+
+export type FireBaseAuthResponse = {
+  localId: string;
+  idToken: string;
+  expiresIn: string;
+  email: string;
+  refreshToken: string;
 };
 
 export const fetchMeals = async () => {
@@ -20,6 +28,10 @@ export const fetchAddresses = async (userId: string) => {
 
 export const saveAddress = async (userId: string, address: Address) => {
   return { addressId: (await firebaseDbPost(`addresses/${userId}`, address)).name };
+};
+
+export const submitOrder = async (userId: string, order: SubmittedOrder) => {
+  return { orderId: (await firebaseDbPost(`orders/${userId}`, order)).name };
 };
 
 const firebaseDbGet = async <T>(document: string) => {

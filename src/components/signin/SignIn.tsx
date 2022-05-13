@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 
 import AuthContext from '../../store/auth-context';
-import FireBaseAuthResponse from '../../model/FireBaseAuthResponse';
+import { FireBaseAuthResponse } from '../../lib/api';
 import Modal from '../ui/modal/Modal';
 import ModalContext from '../../store/modal-context';
 import SignInForm from './form/SignInForm';

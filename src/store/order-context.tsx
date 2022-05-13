@@ -9,6 +9,7 @@ type OrderContext = {
   totalPrice: number;
   addOrderPosition: (position: OrderedMeal) => void;
   removeOrderPosition: (position: OrderedMeal) => void;
+  clearOrder: () => void;
 };
 
 const OrderContext = React.createContext<OrderContext>({
@@ -17,6 +18,7 @@ const OrderContext = React.createContext<OrderContext>({
   totalPrice: 0,
   addOrderPosition: () => {},
   removeOrderPosition: () => {},
+  clearOrder: () => {},
 });
 
 const DEFAULT_STATE: Order = {
@@ -28,37 +30,44 @@ const DEFAULT_STATE: Order = {
 enum Action {
   ADD,
   REMOVE,
+  CLEAR,
 }
 
-const orderReducer = (oldOrder: Order, action: { type: Action; position: OrderedMeal }) => {
-  const position = action.position;
-  let positions = [...oldOrder.positions];
-  const orderedPositionInd = positions.findIndex((item) => item.id === position.id);
-  const orderedPosition = positions[orderedPositionInd];
+const orderReducer = (oldOrder: Order, action: { type: Action; position?: OrderedMeal }) => {
+  if (action.position) {
+    const position = action.position;
+    let positions = [...oldOrder.positions];
+    const orderedPositionInd = positions.findIndex((item) => item.id === position.id);
+    const orderedPosition = positions[orderedPositionInd];
 
-  if (action.type === Action.ADD) {
-    orderedPosition
-      ? (positions[orderedPositionInd] = {
-          ...orderedPosition,
-          amount: orderedPosition.amount + +position.amount,
-        })
-      : positions.push({ ...position });
-  } else if (action.type === Action.REMOVE) {
-    orderedPosition?.amount > +position.amount
-      ? (positions[orderedPositionInd] = {
-          ...orderedPosition,
-          amount: orderedPosition.amount - +position.amount,
-        })
-      : (positions = positions.filter((item) => item.id !== position.id));
-  } else {
-    return DEFAULT_STATE;
+    if (action.type === Action.ADD) {
+      orderedPosition
+        ? (positions[orderedPositionInd] = {
+            ...orderedPosition,
+            amount: orderedPosition.amount + +position.amount,
+          })
+        : positions.push({ ...position });
+    } else if (action.type === Action.REMOVE) {
+      orderedPosition?.amount > +position.amount
+        ? (positions[orderedPositionInd] = {
+            ...orderedPosition,
+            amount: orderedPosition.amount - +position.amount,
+          })
+        : (positions = positions.filter((item) => item.id !== position.id));
+    }
+
+    return {
+      positions: positions,
+      totalAmount: positions.reduce((amount, position) => amount + +position.amount, 0),
+      totalPrice: positions.reduce(
+        (price, position) => price + position.price * +position.amount,
+        0
+      ),
+    };
   }
 
-  return {
-    positions: positions,
-    totalAmount: positions.reduce((amount, position) => amount + +position.amount, 0),
-    totalPrice: positions.reduce((price, position) => price + position.price * +position.amount, 0),
-  };
+  // Action.CLEAR or fallback
+  return DEFAULT_STATE;
 };
 
 export const OrderContextProvider: React.FC<{
@@ -72,6 +81,7 @@ export const OrderContextProvider: React.FC<{
     totalPrice: order.totalPrice,
     addOrderPosition: (position) => dispatchOrder({ type: Action.ADD, position: position }),
     removeOrderPosition: (position) => dispatchOrder({ type: Action.REMOVE, position: position }),
+    clearOrder: () => dispatchOrder({ type: Action.CLEAR }),
   };
 
   return <OrderContext.Provider value={contextValue}>{props.children}</OrderContext.Provider>;

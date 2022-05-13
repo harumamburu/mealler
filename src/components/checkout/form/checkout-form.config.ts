@@ -62,7 +62,7 @@ const checkoutFormConfig: FormConfig = {
     validations: [
       matchesRegexpRule(
         'Email',
-        /^[\w\.\-]+@[\w\.\-]+\.\w{1,4}$/,
+        /^[\w\.\-]+@[\w\.\-]+\.\w{1,4}$|^$/,
         "please make sure it's a valid e-mail"
       ),
     ],

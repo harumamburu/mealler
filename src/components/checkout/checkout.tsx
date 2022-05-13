@@ -25,7 +25,7 @@ const Checkout = () => {
         <hr />
         <CheckoutForm
           userId={authCtx.userId}
-          onCancel={() => modalCtx.setModal('checkout', false)}
+          closeForm={() => modalCtx.setModal('checkout', false)}
         />
       </AddressContextProvider>
     </Modal>
