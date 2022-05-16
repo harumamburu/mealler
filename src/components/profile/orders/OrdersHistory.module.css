@@ -1,0 +1,16 @@
+.history table {
+  font-family: inherit;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.history td,
+.history th {
+  border: 1px solid lightgray;
+  text-align: left;
+  padding: 0.5rem;
+}
+
+.date {
+  background-color: lightgray;
+}
