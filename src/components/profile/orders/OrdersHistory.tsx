@@ -6,7 +6,7 @@ import OrderedMeal from '../../../model/OrderedMeal';
 import Spinner from '../../ui/spinner/Spinner';
 import SubmittedOrder from '../../../model/SubmittedOrder';
 import useHttp, { Status } from '../../../hooks/use-http';
-import styles from '../Table.module.css';
+import styles from '../Profile.module.css';
 
 const OrdersHistory = () => {
   const authContext = useContext(AuthContext);

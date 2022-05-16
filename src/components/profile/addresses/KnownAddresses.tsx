@@ -3,8 +3,8 @@ import { useContext, useEffect } from 'react';
 import AuthContext from '../../../store/auth-context';
 import { fetchAddresses } from '../../../lib/api';
 import Spinner from '../../ui/spinner/Spinner';
-import styles from '../Table.module.css';
 import useHttp, { Status } from '../../../hooks/use-http';
+import styles from '../Profile.module.css';
 
 const KnownAddresses = () => {
   const authContext = useContext(AuthContext);
