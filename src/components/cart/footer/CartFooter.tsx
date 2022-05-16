@@ -5,6 +5,7 @@ const CartFooter = (props: {
   total: number;
   hasItems: boolean;
   closeModal: () => void;
+  clearCart: () => void;
   makeOrder: () => void;
 }) => {
   return (
@@ -20,6 +21,9 @@ const CartFooter = (props: {
       </div>
       <div className={styles.controls}>
         <Button onClick={props.closeModal}>Close</Button>
+        <Button disabled={!props.hasItems} onClick={props.clearCart}>
+          Clear
+        </Button>
         <Button
           {...(props.hasItems ? { main: true } : { disabled: true })}
           onClick={props.makeOrder}

@@ -22,6 +22,7 @@ const Cart = () => {
         total={orderCtx.totalPrice}
         hasItems={orderCtx.positions.length > 0}
         closeModal={() => modalCtx.setModal('cart', false)}
+        clearCart={() => orderCtx.clearOrder()}
         makeOrder={orderHandler}
       />
     </Modal>
