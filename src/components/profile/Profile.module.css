@@ -1,7 +1,9 @@
 .profile table {
   font-family: inherit;
   border-collapse: collapse;
-  width: 100%;
+  width: 95%;
+  margin: auto;
+  table-layout: fixed;
 }
 
 .profile td,
@@ -13,4 +15,8 @@
 
 .profile .date {
   background-color: lightgray;
+}
+
+.profile .centered {
+  text-align: center;
 }
