@@ -3,6 +3,8 @@
   margin: auto;
   margin-top: -15rem;
   position: relative;
+  max-height: 80vh;
+  overflow: scroll;
 }
 
 .http {
