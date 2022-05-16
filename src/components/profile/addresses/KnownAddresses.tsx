@@ -21,17 +21,21 @@ const KnownAddresses = () => {
         <div className={styles.profile}>
           <table>
             <thead>
-              <th>Recipient Name</th>
-              <th>Street</th>
-              <th>Appartment</th>
-            </thead>
-            {data.map((address, index) => (
-              <tr key={`address_${index}`}>
-                <td>{address.name}</td>
-                <td>{`${address.house} ${address.street}`}</td>
-                <td>{address.appartment}</td>
+              <tr>
+                <th>Recipient Name</th>
+                <th>Street</th>
+                <th>Appartment</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {data.map((address, index) => (
+                <tr key={`address_${index}`}>
+                  <td>{address.name}</td>
+                  <td>{`${address.house} ${address.street}`}</td>
+                  <td>{address.appartment}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       )}
