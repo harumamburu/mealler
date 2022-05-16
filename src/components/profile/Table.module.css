@@ -1,16 +1,16 @@
-.history table {
+.profile table {
   font-family: inherit;
   border-collapse: collapse;
   width: 100%;
 }
 
-.history td,
-.history th {
+.profile td,
+.profile th {
   border: 1px solid lightgray;
   text-align: left;
   padding: 0.5rem;
 }
 
-.date {
+.profile .date {
   background-color: lightgray;
 }

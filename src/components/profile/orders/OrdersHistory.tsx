@@ -6,7 +6,7 @@ import OrderedMeal from '../../../model/OrderedMeal';
 import Spinner from '../../ui/spinner/Spinner';
 import SubmittedOrder from '../../../model/SubmittedOrder';
 import useHttp, { Status } from '../../../hooks/use-http';
-import styles from './OrdersHistory.module.css';
+import styles from '../Table.module.css';
 
 const OrdersHistory = () => {
   const authContext = useContext(AuthContext);
@@ -51,7 +51,7 @@ const OrdersHistory = () => {
       {status === Status.PENDING && <Spinner />}
       {error && <span>{error}</span>}
       {data && (
-        <div className={styles.history}>
+        <div className={styles.profile}>
           <table>
             <thead>
               <th>Order</th>
